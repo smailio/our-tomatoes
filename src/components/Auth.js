@@ -4,30 +4,24 @@ import { Typography, Grid } from "@material-ui/core";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import store from "../store.js";
+import connect from "react-redux/es/connect/connect";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-const provider = new firebase.auth.GoogleAuthProvider();
 let token;
 let user;
 
-// firebase.auth().onAuthStateChanged(function(_user) {
-//   if (_user) {
-//     // User is signed in
-//     user = _user;
-//   } else {
-//     // No user is signed in.
-//   }
-// });
 function setUser(user) {
   console.log("setUser", user);
-  store.dispatch({ type: "SET_USER", ...user });
+  store.dispatch({ type: "FETCH_USER_SUCCESS", ...user });
 }
 
 function signInWithGoogle() {
+  store.dispatch({ type: "FETCH_USER" });
   firebase
     .auth()
     .setPersistence(firebase.auth.Auth.Persistence.SESSION)
     .then(function() {
-      var provider = new firebase.auth.GoogleAuthProvider();
+      const provider = new firebase.auth.GoogleAuthProvider();
       // In memory persistence will be applied to the signed in Google user
       // even though the persistence was set to 'none' and a page redirect
       // occurred.
@@ -50,6 +44,7 @@ function signInWithGoogle() {
           email
         });
       } else {
+        store.dispatch({ type: "FETCH_USER_ERROR" });
         console.log("User is signed out.");
       }
 
@@ -69,11 +64,28 @@ function signInWithGoogle() {
         email,
         credential
       });
+      store.dispatch({ type: "FETCH_USER_ERROR" });
       // ...
     });
 }
 
-const Auth = () => {
+const Auth = ({ fetchingConnectionState }) => {
+  if (fetchingConnectionState) {
+    return (
+      <Grid
+        container
+        direction="column"
+        alignItems="center"
+        justify="center"
+        style={{ marginTop: "20vh" }}
+        spacing={24}
+      >
+        <Grid item xs={12} style={{ margin: 20 }}>
+          <CircularProgress />
+        </Grid>
+      </Grid>
+    );
+  }
   return (
     <Grid
       container
@@ -93,4 +105,8 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+const AuthContainer = connect(state => ({
+  fetchingConnectionState: state.user.fetchingConnectionState
+}))(Auth);
+
+export default AuthContainer;

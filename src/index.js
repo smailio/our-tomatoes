@@ -9,20 +9,17 @@ import store from "./store";
 import { Provider } from "react-redux";
 
 // firebase.initializeApp(firebaseConfig);
+store.dispatch({ type: "FETCH_USER" });
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     const uid = user.uid;
     const email = user.email;
     const display_name = user.displayName;
     console.log("User is signed in." + uid);
-    // setUser({
-    //     uid,
-    //     display_name,
-    //     email
-    // });
-    store.dispatch({ type: "SET_USER", uid, email, display_name });
+    store.dispatch({ type: "FETCH_USER_SUCCESS", uid, email, display_name });
   } else {
     // No user is signed in.
+    store.dispatch({ type: "FETCH_USER_ERROR" });
   }
 });
 

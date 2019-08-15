@@ -2,23 +2,31 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 // Logger with default options
 import logger from "redux-logger";
 
-// import { enqueueNotification } from "./notificationMiddleware";
-
 function user(
   state = {
     uid: "",
-    isConnected: false
+    isConnected: false,
+    fetchingConnectionState: false
   },
   action
 ) {
   switch (action.type) {
-    case "SET_USER":
+    case "FETCH_USER_SUCCESS":
       return {
         ...state,
         uid: action.uid,
         display_name: action.display_name,
         email: action.email,
-        isConnected: true
+        isConnected: true,
+        fetchingConnectionState: false
+      };
+    case "FETCH_USER":
+      return {
+        fetchingConnectionState: true
+      };
+    case "FETCH_USER_ERROR":
+      return {
+        fetchingConnectionState: false
       };
     default:
       return state;
