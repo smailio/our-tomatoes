@@ -78,7 +78,7 @@ const Auth = ({ fetchingConnectionState }) => {
         alignItems="center"
         justify="center"
         style={{ marginTop: "20vh" }}
-        spacing={24}
+        spacing={8}
       >
         <Grid item xs={12} style={{ margin: 20 }}>
           <CircularProgress />
@@ -93,7 +93,7 @@ const Auth = ({ fetchingConnectionState }) => {
       alignItems="center"
       justify="center"
       style={{ marginTop: "20vh" }}
-      spacing={24}
+      spacing={8}
     >
       <Grid item xs={12} style={{ margin: 20 }}>
         <Typography variant="h2">Log in</Typography>

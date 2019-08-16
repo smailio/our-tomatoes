@@ -33,7 +33,7 @@ function initFirebase() {
   // });
 
   const db = firebase.firestore();
-  db.settings({ timestampsInSnapshots: true });
+  // db.settings();
   return { db };
 }
 

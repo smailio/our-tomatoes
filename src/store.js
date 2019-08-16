@@ -1,6 +1,8 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 // Logger with default options
 import logger from "redux-logger";
+const TOMATO_TIME = 25;
+const BREAK_TIME = 5;
 
 function user(
   state = {
@@ -33,66 +35,44 @@ function user(
   }
 }
 
-function currentRoom(
-  state = {
-    roomLoaded: false,
-    roomNotFound: false,
-    error: false
-  },
-  action
-) {
+const default_timer = {
+  tomato_id: undefined,
+  start_time: undefined,
+  duration: undefined,
+  is_on: false
+};
+function my_tomato(state = default_timer, action) {
   switch (action.type) {
-    case "SET_ROOM":
+    case "START_TOMATO":
       return {
         ...state,
-        roomLoaded: true,
-        ...action.room
+        tomato_id: action.tomato_id,
+        start_time: action.start_time,
+        is_on: true,
+        duration: TOMATO_TIME
       };
-    case "ROOM_NOT_FOUND":
+    case "START_BREAK":
       return {
         ...state,
-        roomLoaded: true,
-        roomNotFound: true
+        tomato_id: "break",
+        start_time: action.start_time,
+        is_on: true,
+        duration: BREAK_TIME
       };
-    case "ROOM_ERROR":
+    case "STOP_TOMATO":
+    case "STOP_BREAK":
       return {
         ...state,
-        error: true
-      };
-    case "START_GAME_REQUEST":
-      return {
-        ...state,
-        gameIsStarting: true
-      };
-    case "START_GAME_SUCCESS":
-    case "START_GAME_FAILURE":
-      return {
-        ...state,
-        gameIsStarting: false
-      };
-    case "CLEAR_ROOM":
-      return {
-        roomLoaded: false,
-        roomNotFound: false,
-        error: false
+        ...default_timer
       };
     default:
       return state;
   }
 }
 
-function showJoinRoomSpinner(state = false, action) {
-  switch (action.type) {
-    case "JOINING_ROOM":
-      return true;
-    default:
-      return false;
-  }
-}
-
 const reducer = combineReducers({
   user,
-  currentRoom
+  my_tomato
 });
 
 // const store = createStore(reducer, applyMiddleware(enqueueNotification));
