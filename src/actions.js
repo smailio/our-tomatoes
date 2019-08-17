@@ -18,20 +18,22 @@ export function start_tomato(state, dispatch) {
   });
 }
 
-export function stop_tomato(state, dispatch) {
+export function stop_tomato(dispatch, tomato_id, is_on) {
   const end_time_current_tomato = new Date();
-  const my_tomato = state.my_tomato;
-  if (my_tomato.is_on) {
-    db.stop_tomato(my_tomato.tomato_id, end_time_current_tomato);
+  if (is_on) {
+    if (tomato_id !== "break") {
+      db.stop_tomato(tomato_id, end_time_current_tomato);
+    }
     dispatch({ type: "STOP_TOMATO" });
   }
 }
 
 export function start_break(state, dispatch) {
-  stop_tomato(state, dispatch);
+  const tomato = state.my_tomato;
+  stop_tomato(dispatch, tomato.tomato_id, tomato.is_on);
   const start_time = new Date();
   dispatch({
-    type: "START_TOMATO",
+    type: "START_BREAK",
     start_time
   });
 }

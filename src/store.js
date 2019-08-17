@@ -1,7 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 // Logger with default options
 import logger from "redux-logger";
-const TOMATO_TIME = 25;
+const TOMATO_TIME = 1;
 const BREAK_TIME = 5;
 
 function user(

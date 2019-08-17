@@ -25,11 +25,22 @@ const ControlPanelContainer = connect(
   }
 )(ControlPanel);
 
-const MyTomatoContainer = connect(state => ({
-  start_time: state.my_tomato.start_time,
-  timer_duration: state.my_tomato.duration,
-  is_on: state.my_tomato.is_on
-}))(Timer);
+const MyTomatoContainer = connect(
+  state => ({
+    start_time: state.my_tomato.start_time,
+    timer_duration: state.my_tomato.duration,
+    is_on: state.my_tomato.is_on,
+    tomato_id: state.my_tomato.tomato_id
+  }),
+  dispatch => ({
+    on_finish: (tomato_id, is_on) => stop_tomato(dispatch, tomato_id, is_on)
+  }),
+  (state_props, dispatch_props) => ({
+    ...state_props,
+    on_finish: () =>
+      dispatch_props.on_finish(state_props.tomato_id, state_props.is_on)
+  })
+)(Timer);
 
 // const MyTimerControl = ({start_tomato, start_break, })
 const Hello = ({ display_name }) => {

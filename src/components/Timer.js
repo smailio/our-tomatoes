@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 
-function Timer({ start_time, is_on, timer_duration }) {
+function Timer({ start_time, is_on, timer_duration, on_finish }) {
   const [m, setMinutes] = useState(0);
   const [s, setSeconds] = useState(0);
   React.useEffect(() => {
     const timerID = setInterval(
-      () => refresh_times(start_time, setMinutes, setSeconds),
+      () =>
+        refresh_times(
+          start_time,
+          on_finish,
+          timer_duration,
+          setMinutes,
+          setSeconds
+        ),
       1000
     );
     return function cleanup() {
@@ -36,10 +43,20 @@ function elapsed_minutes_since(date) {
   };
 }
 
-function refresh_times(start_time, setMinutes, setSeconds) {
+function refresh_times(
+  start_time,
+  on_finish,
+  timer_duration,
+  setMinutes,
+  setSeconds
+) {
   const { minutes, seconds } = elapsed_minutes_since(start_time);
   setMinutes(minutes);
   setSeconds(seconds);
+  if (minutes >= timer_duration) {
+    console.log("Timer is finnished calling on_finish");
+    on_finish();
+  }
 }
 
 export { Timer };
