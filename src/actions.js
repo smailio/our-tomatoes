@@ -6,7 +6,7 @@ export function start_tomato(state, dispatch) {
   const start_time_next_tomato = new Date();
   const my_tomato = state.my_tomato;
   if (my_tomato.is_on) {
-    db.stop_tomato(my_tomato.tomato_id, end_time_current_tomato);
+    db.stop_tomato(my_tomato.tomato_id, uid, end_time_current_tomato);
     dispatch({ type: "STOP_TOMATO" });
   }
   db.start_tomato(start_time_next_tomato, uid).then(tomato_id => {
@@ -18,11 +18,11 @@ export function start_tomato(state, dispatch) {
   });
 }
 
-export function stop_tomato(dispatch, tomato_id, is_on) {
+export function stop_tomato(dispatch, tomato_id, uid, is_on) {
   const end_time_current_tomato = new Date();
   if (is_on) {
     if (tomato_id !== "break") {
-      db.stop_tomato(tomato_id, end_time_current_tomato);
+      db.stop_tomato(tomato_id, uid, end_time_current_tomato);
     }
     dispatch({ type: "STOP_TOMATO" });
   }
@@ -30,7 +30,8 @@ export function stop_tomato(dispatch, tomato_id, is_on) {
 
 export function start_break(state, dispatch) {
   const tomato = state.my_tomato;
-  stop_tomato(dispatch, tomato.tomato_id, tomato.is_on);
+  const uid = state.user.uid;
+  stop_tomato(dispatch, tomato.tomato_id, uid, tomato.is_on);
   const start_time = new Date();
   dispatch({
     type: "START_BREAK",

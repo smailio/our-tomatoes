@@ -36,9 +36,9 @@ function user(
 }
 
 const default_timer = {
-  tomato_id: undefined,
-  start_time: undefined,
-  duration: undefined,
+  tomato_id: null,
+  start_time: null,
+  duration: null,
   is_on: false
 };
 function my_tomato(state = default_timer, action) {

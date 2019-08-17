@@ -2,34 +2,24 @@ import React, { useState } from "react";
 
 function Timer({ start_time, is_on, timer_duration, on_finish }) {
   const [m, setMinutes] = useState(0);
-  const [s, setSeconds] = useState(0);
   React.useEffect(() => {
-    const timerID = setInterval(
-      () =>
-        refresh_times(
-          start_time,
-          on_finish,
-          timer_duration,
-          setMinutes,
-          setSeconds
-        ),
-      1000
-    );
-    return function cleanup() {
-      clearInterval(timerID);
-    };
+    if (is_on) {
+      const timerID = setInterval(
+        () => refresh_times(start_time, on_finish, timer_duration, setMinutes),
+        1000
+      );
+      return function cleanup() {
+        clearInterval(timerID);
+      };
+    }
   });
-  if (m >= timer_duration) {
-    return <div> DONE !</div>;
-  }
   if (!is_on) {
-    return <div> 00 : 00</div>;
+    return <div>00</div>;
   }
-  return (
-    <div>
-      {m} : {s}
-    </div>
-  );
+  if (m <= 0) {
+    return <div> 00</div>;
+  }
+  return <div>{m}</div>;
 }
 
 function elapsed_minutes_since(date) {
@@ -43,16 +33,12 @@ function elapsed_minutes_since(date) {
   };
 }
 
-function refresh_times(
-  start_time,
-  on_finish,
-  timer_duration,
-  setMinutes,
-  setSeconds
-) {
-  const { minutes, seconds } = elapsed_minutes_since(start_time);
-  setMinutes(minutes);
-  setSeconds(seconds);
+function refresh_times(start_time, on_finish, timer_duration, setMinutes) {
+  const { minutes } = elapsed_minutes_since(start_time);
+  // console.log("elapsed minutes", minutes);
+  const remaining_minutes = timer_duration - minutes;
+  // console.log("remaining_minutes", remaining_minutes);
+  setMinutes(remaining_minutes);
   if (minutes >= timer_duration) {
     console.log("Timer is finnished calling on_finish");
     on_finish();
