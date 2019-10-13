@@ -34,10 +34,10 @@ function elapsed_minutes_since(date) {
 }
 
 function refresh_times(start_time, on_finish, timer_duration, setMinutes) {
-  const { minutes } = elapsed_minutes_since(start_time);
-  // console.log("elapsed minutes", minutes);
+  const { minutes, seconds } = elapsed_minutes_since(start_time);
+  console.log("elapsed", minutes, ":", seconds);
   const remaining_minutes = timer_duration - minutes;
-  // console.log("remaining_minutes", remaining_minutes);
+  console.log("remaining minutes ", minutes, "seconds", seconds);
   setMinutes(remaining_minutes);
   if (minutes >= timer_duration) {
     console.log("Timer is finnished calling on_finish");

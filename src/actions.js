@@ -5,11 +5,12 @@ export function start_tomato(state, dispatch) {
   const end_time_current_tomato = new Date();
   const start_time_next_tomato = new Date();
   const my_tomato = state.my_tomato;
+  const duration = my_tomato.duration;
   if (my_tomato.is_on) {
     db.stop_tomato(my_tomato.tomato_id, uid, end_time_current_tomato);
     dispatch({ type: "STOP_TOMATO" });
   }
-  db.start_tomato(start_time_next_tomato, uid).then(tomato_id => {
+  db.start_tomato(start_time_next_tomato, duration, uid).then(tomato_id => {
     dispatch({
       type: "START_TOMATO",
       tomato_id,

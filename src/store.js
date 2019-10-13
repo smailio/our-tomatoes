@@ -65,6 +65,13 @@ function my_tomato(state = default_timer, action) {
         ...state,
         ...default_timer
       };
+    case "FETCH_USER_SUCCESS":
+      return {
+        ...state,
+        tomato_id: action.tomato_id,
+        start_time: action.start_time,
+        is_on: action.is_on
+      };
     default:
       return state;
   }

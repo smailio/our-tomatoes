@@ -48,7 +48,6 @@ const MyTomatoContainer = connect(
   })
 )(Timer);
 
-// const MyTimerControl = ({start_tomato, start_break, })
 const Hello = ({ display_name }) => {
   return (
     <div>
@@ -62,11 +61,5 @@ const Hello = ({ display_name }) => {
 const HelloContainer = connect(state => ({
   display_name: state.user.display_name
 }))(Hello);
-
-// const MyTimer = connect(state => ({
-//   start_time: state.my_timer.start_time,
-//   is_on: state.my_timer.is_on,
-//   timer_duration: state.my_timer.timer_duration
-// }))(Timer);
 
 export default HelloContainer;

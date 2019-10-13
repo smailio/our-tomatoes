@@ -7,6 +7,7 @@ import "typeface-roboto";
 import * as firebase from "firebase/app";
 import store from "./store";
 import { Provider } from "react-redux";
+import { get_tomato } from "./db";
 
 // firebase.initializeApp(firebaseConfig);
 store.dispatch({ type: "FETCH_USER" });
@@ -16,7 +17,19 @@ firebase.auth().onAuthStateChanged(function(user) {
     const email = user.email;
     const display_name = user.displayName;
     console.log("User is signed in." + uid);
-    store.dispatch({ type: "FETCH_USER_SUCCESS", uid, email, display_name });
+    get_tomato(uid).then(tomato => {
+      console.log("get tomato ", tomato);
+      store.dispatch({
+        type: "FETCH_USER_SUCCESS",
+        uid,
+        email,
+        display_name
+      });
+      store.dispatch({
+        type: "START_TOMATO",
+        ...tomato
+      });
+    });
   } else {
     // No user is signed in.
     store.dispatch({ type: "FETCH_USER_ERROR" });

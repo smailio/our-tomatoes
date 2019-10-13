@@ -1,10 +1,11 @@
 import { db } from "./initFirebase";
 
-export function start_tomato(start_time, uid) {
+export function start_tomato(start_time, duration, uid) {
   return db
     .collection("tomatoes")
     .add({
       start_time,
+      duration,
       uid
     })
     .then(function(docRef) {
@@ -16,6 +17,7 @@ export function start_tomato(start_time, uid) {
           {
             tomato_id: docRef.id,
             start_time,
+            duration,
             is_on: true
           },
           { merge: true }
@@ -57,4 +59,17 @@ export function stop_tomato(tomato_id, uid, end_time) {
     .catch(function(error) {
       console.error(`Error stopping tomato: ${tomato_id}`, error);
     });
+}
+
+export function get_tomato(uid) {
+  return db
+    .collection("tomato")
+    .doc(uid)
+    .get()
+    .then(doc => doc.data())
+    .then(tomato => ({
+      ...tomato,
+      start_time: tomato.start_time.toDate(),
+      end_time: tomato.end_time.toDate()
+    }));
 }
