@@ -1,60 +1,33 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Timer } from "./Timer";
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import { start_tomato, stop_tomato, start_break } from "../actions";
+import ControlPanel from "./ControlPanel";
+import MyTomato from "./MyTomato";
+import { Switch, Route, useParams } from "react-router-dom";
 
-const ControlPanel = ({ start_pomodoro, start_break }) => (
-  <div>
-    <ButtonGroup color="primary" aria-label="control panel">
-      <Button onClick={start_pomodoro}>POMODORO</Button>
-      <Button onClick={start_break}>BREAK</Button>
-    </ButtonGroup>
-  </div>
-);
-
-const ControlPanelContainer = connect(
-  state => state,
-  dispatch => ({ dispatch }),
-  (state, { dispatch }) => {
-    return {
-      start_pomodoro: () => start_tomato(state, dispatch),
-      start_break: () => start_break(state, dispatch)
-    };
-  }
-)(ControlPanel);
-
-const MyTomatoContainer = connect(
-  state => ({
-    start_time: state.my_tomato.start_time,
-    timer_duration: state.my_tomato.duration,
-    is_on: state.my_tomato.is_on,
-    uid: state.user.uid,
-    tomato_id: state.my_tomato.tomato_id
-  }),
-  dispatch => ({
-    on_finish: (tomato_id, uid, is_on) =>
-      stop_tomato(dispatch, tomato_id, uid, is_on)
-  }),
-  (state_props, dispatch_props) => ({
-    ...state_props,
-    on_finish: () =>
-      dispatch_props.on_finish(
-        state_props.tomato_id,
-        state_props.uid,
-        state_props.is_on
-      )
-  })
-)(Timer);
-
-const Hello = ({ display_name }) => {
+const MyPage = () => {
   return (
     <div>
-      <h1>Hello {display_name}</h1>
-      <MyTomatoContainer />
-      <ControlPanelContainer />
+      <MyTomato />
+      <ControlPanel />
     </div>
+  );
+};
+
+const OtherGuyPage = () => {
+  let { id } = useParams();
+  return <h3>{id}</h3>;
+};
+
+const Hello = () => {
+  return (
+    <Switch>
+      <Route path="/:id">
+        <OtherGuyPage />
+      </Route>
+      <Route path="/">
+        <MyPage />
+      </Route>
+    </Switch>
   );
 };
 

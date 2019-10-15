@@ -8,6 +8,7 @@ import * as firebase from "firebase/app";
 import store from "./store";
 import { Provider } from "react-redux";
 import { get_tomato } from "./db";
+import { BrowserRouter as Router } from "react-router-dom";
 
 // firebase.initializeApp(firebaseConfig);
 store.dispatch({ type: "FETCH_USER" });
@@ -38,7 +39,9 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </Provider>,
   document.getElementById("root")
 );
