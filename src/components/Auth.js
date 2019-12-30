@@ -1,22 +1,13 @@
 import React from "react";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { Grid } from "@material-ui/core";
-import * as firebase from "firebase/app";
 import "firebase/auth";
-import store from "../store.js";
 import connect from "react-redux/es/connect/connect";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import signInWithGoogle from "../signinWithGoogle";
 
 function handleOnClickSignIn() {
-  signInWithGoogle().then(user => {
-    store.dispatch({
-      type: "FETCH_USER_SUCCESS",
-      uid: user.uid,
-      display_name: user.displayName,
-      email: user.email
-    });
-  });
+  signInWithGoogle();
 }
 
 const Auth = ({ fetchingConnectionState }) => {
