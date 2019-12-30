@@ -1,3 +1,4 @@
+import firebase from "firebase/app";
 import { db } from "./initFirebase";
 
 export function start_tomato(start_time, duration, uid) {
@@ -95,5 +96,22 @@ export function subscribe_to_tomato(uid, callback) {
       const tomato = doc.data();
       console.log("receive snapshot of tomato", tomato);
       callback(fix_dates(tomato));
+    });
+}
+
+export function follow(my_uid, uid_to_follow) {
+  return db
+    .collection("following")
+    .doc(my_uid)
+    .set(
+      { users: firebase.firestore.FieldValue.arrayUnion(uid_to_follow) },
+      { merge: true }
+    )
+    .then(() => {
+      console.log(`successfully followed user ${uid_to_follow}!`);
+      return true;
+    })
+    .catch(error => {
+      console.log(`Error following user ${uid_to_follow}`, error);
     });
 }

@@ -108,10 +108,21 @@ function other_guys_tomatoes(state = {}, action) {
       return state;
   }
 }
+
+function following(user_ids = [], action) {
+  switch (action.type) {
+    case "SET_FOLLOWING":
+      return action.user_ids;
+    default:
+      return user_ids;
+  }
+}
+
 const reducer = combineReducers({
   user,
   my_tomato,
-  other_guys_tomatoes
+  other_guys_tomatoes,
+  following
 });
 
 // const store = createStore(reducer, applyMiddleware(enqueueNotification));
