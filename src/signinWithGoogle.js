@@ -5,7 +5,7 @@ export default function signInWithGoogle() {
   store.dispatch({ type: "FETCH_USER" });
   return firebase
     .auth()
-    .setPersistence(firebase.auth.Auth.Persistence.SESSION)
+    .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
     .then(function() {
       const provider = new firebase.auth.GoogleAuthProvider();
       // In memory persistence will be applied to the signed in Google user
@@ -14,7 +14,8 @@ export default function signInWithGoogle() {
       return firebase.auth().signInWithPopup(provider);
     })
     .then(function(result) {
-      // This gives you a Google Access Token. You can use it to access the Google API.
+      // This gives you a Google Access Token.
+      // You can use it to access the Google API.
       let token = result.credential.accessToken;
       // The signed-in user info.
       let user = result.user;
