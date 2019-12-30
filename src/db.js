@@ -13,15 +13,12 @@ export function start_tomato(start_time, duration, uid) {
       return db
         .collection("tomato")
         .doc(uid)
-        .set(
-          {
-            tomato_id: docRef.id,
-            start_time,
-            duration,
-            is_on: true
-          },
-          { merge: true }
-        )
+        .set({
+          tomato_id: docRef.id,
+          start_time,
+          duration,
+          is_on: true
+        })
         .then(() => docRef.id);
     })
     .catch(function(error) {
@@ -67,9 +64,14 @@ export function get_tomato(uid) {
     .doc(uid)
     .get()
     .then(doc => doc.data())
-    .then(tomato => ({
-      ...tomato,
-      start_time: tomato.start_time.toDate(),
-      end_time: tomato.end_time.toDate()
-    }));
+    .then(tomato => {
+      console.log("getting tomato", tomato);
+      return tomato
+        ? {
+            ...tomato,
+            start_time: tomato.start_time ? tomato.start_time.toDate() : null,
+            end_time: tomato.end_time ? tomato.end_time.toDate() : null
+          }
+        : null;
+    });
 }

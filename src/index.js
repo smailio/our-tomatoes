@@ -26,10 +26,33 @@ firebase.auth().onAuthStateChanged(function(user) {
         email,
         display_name
       });
-      store.dispatch({
-        type: "START_TOMATO",
-        ...tomato
-      });
+      if (!tomato) {
+        console.log(
+          "tomato doesn't exist yet in database, this is the" +
+            " first time the user connect or something bad happened"
+        );
+        return;
+      }
+      // if tomato is still valid start it
+      const now = new Date();
+      if (
+        now.getTime() <
+        tomato.start_time.getTime() + tomato.duration * 60 * 1000
+      ) {
+        store.dispatch({
+          type: "START_TOMATO",
+          ...tomato
+        });
+      } else {
+        console.log(
+          `
+          Tomato finish time is   ${tomato.end_time} 
+          and the current time is ${now} so there is no point to start it`,
+          tomato,
+          tomato.start_time.getTime(),
+          tomato.duration
+        );
+      }
     });
   } else {
     // No user is signed in.
