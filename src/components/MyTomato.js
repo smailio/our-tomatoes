@@ -5,7 +5,7 @@ import { Timer } from "./Timer";
 const MyTomatoContainer = connect(
   state => ({
     start_time: state.my_tomato.start_time,
-    timer_duration: state.my_tomato.duration,
+    duration: state.my_tomato.duration,
     is_on: state.my_tomato.is_on,
     uid: state.user.uid,
     tomato_id: state.my_tomato.tomato_id

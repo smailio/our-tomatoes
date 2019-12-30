@@ -1,7 +1,7 @@
 ##functional requirements
 - when a user sign up a pomodoro is created for this user
 - the user need to login to manipulate his pomodoro
-- a user doesn't need to login to access other people pomodoros
+- a user doesn't need to login to access other people pomodoros [GIVE UP]
 - home page `/`
   - for logged in user 
     - his own pomodoro
@@ -51,3 +51,13 @@ code block
 ```
 [link](http://localhost:3000) <br>
 **bold**
+
+
+## TODO
+- add duration in firebase
+- add redirect / => /myid
+- OtherGyTomato
+    - fetch other guy tomato
+    - display the timer without 
+    - 
+## DONE
