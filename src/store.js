@@ -1,8 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 // Logger with default options
 import logger from "redux-logger";
-const TOMATO_TIME = 1;
-const BREAK_TIME = 5;
+import { TOMATO_TIME, BREAK_TIME } from "./constants";
 
 function user(
   state = {
@@ -41,6 +40,7 @@ const default_timer = {
   duration: null,
   is_on: false
 };
+
 function my_tomato(state = default_timer, action) {
   switch (action.type) {
     case "START_TOMATO":
@@ -77,9 +77,41 @@ function my_tomato(state = default_timer, action) {
   }
 }
 
+function other_guys_tomatoes(state = {}, action) {
+  switch (action.type) {
+    case "GET_OTHER_GUY_TOMATO":
+      return {
+        ...state,
+        [action.uid]: {
+          is_loading: true,
+          not_found: false
+        }
+      };
+    case "GET_OTHER_GUY_TOMATO_SUCCESS":
+      return {
+        ...state,
+        [action.uid]: {
+          ...action.tomato,
+          is_loading: false,
+          not_found: false
+        }
+      };
+    case "GET_OTHER_GUY_TOMATO_FAILED":
+      return {
+        ...state,
+        [action.uid]: {
+          is_loading: false,
+          not_found: true
+        }
+      };
+    default:
+      return state;
+  }
+}
 const reducer = combineReducers({
   user,
-  my_tomato
+  my_tomato,
+  other_guys_tomatoes
 });
 
 // const store = createStore(reducer, applyMiddleware(enqueueNotification));

@@ -22,6 +22,20 @@ export function start_tomato(state, dispatch) {
   });
 }
 
+export function useGetOtherGuyTomato(uid) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch({ type: "GET_OTHER_GUY_TOMATO", uid });
+    db.subscribe_to_tomato(uid, tomato => {
+      dispatch({
+        type: "GET_OTHER_GUY_TOMATO_SUCCESS",
+        tomato,
+        uid
+      });
+    });
+  }, [uid, dispatch]);
+}
+
 export function stop_tomato(dispatch, tomato_id, uid, is_on) {
   const end_time_current_tomato = new Date();
   if (is_on) {
