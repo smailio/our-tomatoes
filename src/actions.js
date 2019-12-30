@@ -1,11 +1,14 @@
 import * as db from "./db";
+import { TOMATO_TIME } from "./constants";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 export function start_tomato(state, dispatch) {
   const uid = state.user.uid;
   const end_time_current_tomato = new Date();
   const start_time_next_tomato = new Date();
   const my_tomato = state.my_tomato;
-  const duration = my_tomato.duration;
+  const duration = TOMATO_TIME;
   if (my_tomato.is_on) {
     db.stop_tomato(my_tomato.tomato_id, uid, end_time_current_tomato);
     dispatch({ type: "STOP_TOMATO" });
