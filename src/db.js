@@ -75,3 +75,25 @@ export function get_tomato(uid) {
         : null;
     });
 }
+
+function fix_dates(tomato) {
+  if (!tomato) return tomato;
+  else {
+    return {
+      ...tomato,
+      start_time: tomato.start_time ? tomato.start_time.toDate() : null,
+      end_time: tomato.end_time ? tomato.end_time.toDate() : null
+    };
+  }
+}
+
+export function subscribe_to_tomato(uid, callback) {
+  return db
+    .collection("tomato")
+    .doc(uid)
+    .onSnapshot(doc => {
+      const tomato = doc.data();
+      console.log("receive snapshot of tomato", tomato);
+      callback(fix_dates(tomato));
+    });
+}

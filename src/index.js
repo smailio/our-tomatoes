@@ -7,7 +7,7 @@ import "typeface-roboto";
 import * as firebase from "firebase/app";
 import store from "./store";
 import { Provider } from "react-redux";
-import { get_tomato } from "./db";
+import { subscribe_to_tomato } from "./db";
 import { BrowserRouter as Router } from "react-router-dom";
 
 // firebase.initializeApp(firebaseConfig);
@@ -18,7 +18,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     const email = user.email;
     const display_name = user.displayName;
     console.log("User is signed in." + uid);
-    get_tomato(uid).then(tomato => {
+    subscribe_to_tomato(uid, tomato => {
       console.log("get tomato ", tomato);
       store.dispatch({
         type: "FETCH_USER_SUCCESS",
@@ -56,6 +56,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     });
   } else {
     // No user is signed in.
+    console.error("Dunno why the user is undefined at this point", user);
     store.dispatch({ type: "FETCH_USER_ERROR" });
   }
 });
