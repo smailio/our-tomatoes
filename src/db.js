@@ -88,7 +88,7 @@ function fix_dates(tomato) {
   }
 }
 
-export function subscribe_to_tomato(uid, callback) {
+export function observe_tomato(uid, callback) {
   return db
     .collection("tomato")
     .doc(uid)
@@ -104,14 +104,29 @@ export function follow(my_uid, uid_to_follow) {
     .collection("following")
     .doc(my_uid)
     .set(
-      { users: firebase.firestore.FieldValue.arrayUnion(uid_to_follow) },
+      { user_ids: firebase.firestore.FieldValue.arrayUnion(uid_to_follow) },
       { merge: true }
     )
-    .then(() => {
-      console.log(`successfully followed user ${uid_to_follow}!`);
+    .then(doc => {
+      console.log(`successfully followed user ${uid_to_follow}!`, doc);
       return true;
     })
     .catch(error => {
       console.log(`Error following user ${uid_to_follow}`, error);
+    });
+}
+
+export function observe_following(uid, callback) {
+  return db
+    .collection("following")
+    .doc(uid)
+    .onSnapshot(doc => {
+      const following = doc.data();
+      console.log(
+        `receive snapshot of following for uid ${uid}`,
+        doc,
+        following
+      );
+      callback(following ? following.user_ids : []);
     });
 }

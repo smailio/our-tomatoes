@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
 import MyPage from "./MyPage";
 import OtherGuyPage from "./OtherGuyPage";
+import { useObserveFollowing } from "../useObserveFollowing";
 
 const Hello = ({ uid }) => {
+  useObserveFollowing();
   return (
     <Switch>
       <Route path={`/${uid}`}>

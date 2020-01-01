@@ -26,7 +26,7 @@ export function useGetOtherGuyTomato(uid) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: "GET_OTHER_GUY_TOMATO", uid });
-    db.subscribe_to_tomato(uid, tomato => {
+    db.observe_tomato(uid, tomato => {
       dispatch({
         type: "GET_OTHER_GUY_TOMATO_SUCCESS",
         tomato,
