@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
 import { db } from "./initFirebase";
 
-export function start_tomato(start_time, duration, uid) {
+export function add_tomato(start_time, duration, uid) {
   return db
     .collection("tomatoes")
     .add({
@@ -28,7 +28,7 @@ export function start_tomato(start_time, duration, uid) {
     });
 }
 
-export function stop_tomato(tomato_id, uid, end_time) {
+export function update_tomato_end_date(tomato_id, uid, end_time) {
   return db
     .collection("tomatoes")
     .doc(tomato_id)
@@ -99,7 +99,7 @@ export function observe_tomato(uid, callback) {
     });
 }
 
-export function follow(my_uid, uid_to_follow) {
+export function add_following(my_uid, uid_to_follow) {
   return db
     .collection("following")
     .doc(my_uid)
