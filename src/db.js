@@ -130,3 +130,26 @@ export function observe_following(uid, callback) {
       callback(following ? following.user_ids : []);
     });
 }
+
+export function add_guy(uid, display_name, photo_url) {
+  db.collection("guys")
+    .doc(uid)
+    .set({
+      display_name,
+      photo_url
+    })
+    .then(doc => {
+      console.log(
+        `Successfulled added guy ${[uid, display_name, photo_url]} into doc`,
+        doc
+      );
+    });
+}
+
+export function get_guy(uid) {
+  return db
+    .collection("guys")
+    .doc(uid)
+    .get()
+    .then(doc => doc.data());
+}
