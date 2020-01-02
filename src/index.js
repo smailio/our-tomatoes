@@ -14,17 +14,21 @@ import { BrowserRouter as Router } from "react-router-dom";
 store.dispatch({ type: "FETCH_USER" });
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
+    console.log("onAuthStateChanged user", user);
     const uid = user.uid;
     const email = user.email;
     const display_name = user.displayName;
+    const photo_url = user.photoURL;
     console.log("User is signed in." + uid);
+
     observe_tomato(uid, tomato => {
       console.log("get tomato ", tomato);
       store.dispatch({
         type: "FETCH_USER_SUCCESS",
         uid,
         email,
-        display_name
+        display_name,
+        photo_url
       });
       if (!tomato) {
         console.log(

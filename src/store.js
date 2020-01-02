@@ -18,6 +18,7 @@ function user(
         uid: action.uid,
         display_name: action.display_name,
         email: action.email,
+        photo_url: action.photo_url,
         isConnected: true,
         fetchingConnectionState: false
       };
