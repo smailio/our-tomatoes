@@ -2,8 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import * as db from "./db";
 import { TOMATO_TIME } from "./constants";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useFollowing } from "./selectors";
 
 export function start_tomato(state, dispatch) {
   const uid = state.user.uid;
@@ -40,6 +39,23 @@ export function useGetOtherGuyTomato(uid) {
       });
     });
   }, [uid, dispatch]);
+}
+
+export function useObseveFollowingTomatoes() {
+  const following = useFollowing();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    for (let uid of following) {
+      dispatch({ type: "GET_OTHER_GUY_TOMATO", uid });
+      db.observe_tomato(uid, tomato => {
+        dispatch({
+          type: "GET_OTHER_GUY_TOMATO_SUCCESS",
+          tomato,
+          uid
+        });
+      });
+    }
+  }, [following, dispatch]);
 }
 
 export function stop_tomato(dispatch, tomato_id, uid, is_on) {

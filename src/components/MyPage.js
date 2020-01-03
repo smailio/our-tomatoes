@@ -1,12 +1,14 @@
+import React from "react";
 import MyTomato from "./MyTomato";
 import ControlPanel from "./ControlPanel";
-import React from "react";
+import Following from "./Following";
 
 const MyPage = () => {
   return (
     <div>
       <MyTomato />
       <ControlPanel />
+      <Following />
     </div>
   );
 };

@@ -7,7 +7,7 @@ function OtherGyTomato({ uid }) {
   console.log("render other guy tomato ", tomato);
   return (
     <Timer
-      {...tomato}
+      tomato={{ ...tomato }}
       on_finish={() => {
         console.log("BLINK BLINK TOMATO FINISHES ", tomato);
       }}

@@ -12,7 +12,7 @@ function FollowButton({ uid_to_follow }) {
   const following = useFollowing();
   const uid = useMyUid();
   const follow = useCallback(() => {
-    db.follow(uid, uid_to_follow);
+    db.add_following(uid, uid_to_follow);
   }, [uid, uid_to_follow]);
   if (following.includes(uid_to_follow)) {
     return (
