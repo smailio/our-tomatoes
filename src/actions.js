@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import * as db from "./db";
 import { TOMATO_TIME } from "./constants";
 import { useDispatch } from "react-redux";
@@ -59,4 +61,18 @@ export function start_break(state, dispatch) {
     type: "START_BREAK",
     start_time
   });
+}
+
+export function useGetPersonalInfos() {
+  const following = useFollowing();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    Promise.all(following.map(uid => db.get_personal_info(uid))).then(
+      personal_info_list =>
+        dispatch({
+          type: "SET_PERSONAL_INFO",
+          personal_info_list
+        })
+    );
+  }, [following, dispatch]);
 }

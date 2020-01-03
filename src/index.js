@@ -7,7 +7,7 @@ import "typeface-roboto";
 import * as firebase from "firebase/app";
 import store from "./store";
 import { Provider } from "react-redux";
-import { observe_tomato } from "./db";
+import { add_personal_info, observe_tomato } from "./db";
 import { BrowserRouter as Router } from "react-router-dom";
 
 // firebase.initializeApp(firebaseConfig);
@@ -21,6 +21,8 @@ firebase.auth().onAuthStateChanged(function(user) {
     const photo_url = user.photoURL;
     console.log("User is signed in." + uid);
 
+    console.log("updating guy info in DB", uid, display_name, photo_url);
+    add_personal_info(uid, display_name, photo_url);
     observe_tomato(uid, tomato => {
       console.log("get tomato ", tomato);
       store.dispatch({

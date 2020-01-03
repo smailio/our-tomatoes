@@ -119,11 +119,25 @@ function following(user_ids = [], action) {
   }
 }
 
+function personal_info(state = {}, action) {
+  switch (action.type) {
+    case "SET_PERSONAL_INFO":
+      const personal_info_by_uid = {};
+      for (let personal_info of action.personal_info_list) {
+        personal_info_by_uid[personal_info.uid] = personal_info;
+      }
+      return personal_info_by_uid;
+    default:
+      return state;
+  }
+}
+
 const reducer = combineReducers({
   user,
   my_tomato,
   other_guys_tomatoes,
-  following
+  following,
+  personal_info
 });
 
 // const store = createStore(reducer, applyMiddleware(enqueueNotification));

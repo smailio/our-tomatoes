@@ -131,25 +131,40 @@ export function observe_following(uid, callback) {
     });
 }
 
-export function add_guy(uid, display_name, photo_url) {
-  db.collection("guys")
+export function add_personal_info(uid, display_name, photo_url) {
+  db.collection("personal_info")
     .doc(uid)
     .set({
       display_name,
-      photo_url
+      photo_url,
+      uid
     })
     .then(doc => {
       console.log(
-        `Successfulled added guy ${[uid, display_name, photo_url]} into doc`,
+        `Successfulled added personal_info ${[
+          uid,
+          display_name,
+          photo_url
+        ]} into doc`,
         doc
+      );
+    })
+    .catch(error => {
+      console.error(
+        "Somthing wrong happend when trying to add personal_info",
+        uid
       );
     });
 }
 
-export function get_guy(uid) {
+export function get_personal_info(uid) {
   return db
-    .collection("guys")
+    .collection("personal_info")
     .doc(uid)
     .get()
-    .then(doc => doc.data());
+    .then(doc => {
+      const personal_info = doc.data();
+      console.log("Success ! get personal_info", doc, personal_info);
+      return personal_info;
+    });
 }
