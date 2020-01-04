@@ -1,6 +1,16 @@
+import React from "react";
 import connect from "react-redux/es/connect/connect";
 import { stop_tomato } from "../actions";
 import { Timer } from "./Timer";
+import Typography from "@material-ui/core/Typography";
+
+function MyTomato({ tomato, on_finish }) {
+  return (
+    <Typography variant="h3">
+      <Timer tomato={tomato} on_finish={on_finish} />
+    </Typography>
+  );
+}
 
 const MyTomatoContainer = connect(
   state => ({ tomato: state.my_tomato }),
@@ -17,6 +27,6 @@ const MyTomatoContainer = connect(
         state_props.is_on
       )
   })
-)(Timer);
+)(MyTomato);
 
 export default MyTomatoContainer;
