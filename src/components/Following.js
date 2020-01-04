@@ -1,11 +1,27 @@
 import React from "react";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
+import Avatar from "@material-ui/core/Avatar";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import Typography from "@material-ui/core/Typography";
 import { useFollowingTomatoes } from "../selectors";
 import { Timer } from "./Timer";
 import { useGetPersonalInfos, useObseveFollowingTomatoes } from "../actions";
+
+function FollowingTomato({ following }) {
+  return (
+    <Timer
+      tomato={following.tomato}
+      on_finish={() => {
+        console.log(
+          `${following.uid} ${
+            following.personal_info.display_name
+          } finished his pomodoro`
+        );
+      }}
+    />
+  );
+}
 
 export default function Following() {
   const following_tomatoes = useFollowingTomatoes();
@@ -17,20 +33,23 @@ export default function Following() {
       {following_tomatoes
         .filter(
           following =>
+            following.personal_info &&
             following.tomato &&
             !following.tomato.is_loading &&
             !following.tomato.not_found
         )
         .map(following => {
           return (
-            <ListItem key={<Typography>{following.uid}</Typography>}>
+            <ListItem key={following.uid}>
+              <ListItemAvatar>
+                <Avatar
+                  alt={following.personal_info.display_name}
+                  src={following.personal_info.photo_url}
+                />
+              </ListItemAvatar>
               <ListItemText
-                primary={
-                  following.personal_info
-                    ? following.personal_info.display_name
-                    : "XXXX"
-                }
-                secondary={<Timer tomato={following.tomato} />}
+                primary={<FollowingTomato following={following} />}
+                primaryTypographyProps={{ variant: "h4" }}
               />
             </ListItem>
           );
