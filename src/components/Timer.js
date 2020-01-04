@@ -74,15 +74,12 @@ function TimerOn({ start_time, is_on, duration, on_finish }) {
   }, [start_time, remaining_minutes, remaining_seconds, on_finish, is_on]);
   if (!is_on) {
     console.warn("THERE'S DEFINITELY AN ISSUE WITH THE PARENT COMPONENT");
-    return <div>THERE'S DEFINITELY AN ISSUE WITH THE PARENT COMPONENT</div>;
+    return <span>THERE'S DEFINITELY AN ISSUE WITH THE PARENT COMPONENT</span>;
   }
   if (remaining_minutes === 1) {
-    return <div> {remaining_seconds}</div>;
-  } else if (remaining_minutes <= 0) {
-    console.warn("WTF SHOUDLN'T HAVE REMAINING MINUTES LESS OR EQUAL TO 0");
-    return <div>OLALA</div>;
+    return <span> {remaining_seconds}</span>;
   }
-  return <div>{remaining_minutes}</div>;
+  return <span>{remaining_minutes}</span>;
 }
 
 function Timer({ tomato, on_finish }) {
