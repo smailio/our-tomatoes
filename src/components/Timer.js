@@ -59,11 +59,7 @@ function useTimer(start_time, duration) {
 }
 
 function TimerOn({ start_time, is_on, duration, on_finish }) {
-  const [remaining_minutes, remaining_seconds] = useTimer(
-    start_time,
-    is_on,
-    duration
-  );
+  const [remaining_minutes, remaining_seconds] = useTimer(start_time, duration);
   useEffect(() => {
     if (is_on && remaining_minutes <= 0 && remaining_seconds <= 0) {
       console.log(
