@@ -32,7 +32,7 @@ function remaining_time(start_time, duration) {
   const elapsed = elapsed_minutes_since(start_time);
   return {
     minutes: duration - elapsed.minutes,
-    seconds: 60 * duration - (elapsed.seconds + elapsed.minutes * 60)
+    seconds: (60 * duration - (elapsed.seconds + elapsed.minutes * 60)) % 60
   };
 }
 

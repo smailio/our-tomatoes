@@ -1,15 +1,28 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import * as db from "./db";
-import { TOMATO_TIME } from "./constants";
+import { TOMATO_TIME, BREAK_TIME } from "./constants";
 import { useFollowing } from "./selectors";
 
-export function start_tomato(state, dispatch) {
+function duration_of_tomato_type(tomato_type) {
+  switch (tomato_type) {
+    case "tomato":
+      return TOMATO_TIME;
+    case "break":
+      return BREAK_TIME;
+    default:
+      throw new TypeError(
+        `tomato type can be "tomato" or "break" not ${tomato_type}`
+      );
+  }
+}
+
+export function start_tomato(state, dispatch, tomato_type) {
   const uid = state.user.uid;
   const end_time_current_tomato = new Date();
   const start_time_next_tomato = new Date();
   const my_tomato = state.my_tomato;
-  const duration = TOMATO_TIME;
+  const duration = duration_of_tomato_type(tomato_type);
   if (my_tomato.is_on) {
     db.update_tomato_end_date(
       my_tomato.tomato_id,
@@ -18,13 +31,17 @@ export function start_tomato(state, dispatch) {
     );
     dispatch({ type: "STOP_TOMATO" });
   }
-  db.add_tomato(start_time_next_tomato, duration, uid).then(tomato_id => {
-    dispatch({
-      type: "START_TOMATO",
-      tomato_id,
-      start_time: start_time_next_tomato
-    });
-  });
+  db.add_tomato(start_time_next_tomato, duration, uid, tomato_type).then(
+    tomato_id => {
+      dispatch({
+        type: "START_TOMATO",
+        tomato_id,
+        start_time: start_time_next_tomato,
+        tomato_type,
+        duration
+      });
+    }
+  );
 }
 
 export function useGetOtherGuyTomato(uid) {
@@ -41,7 +58,7 @@ export function useGetOtherGuyTomato(uid) {
   }, [uid, dispatch]);
 }
 
-export function useObseveFollowingTomatoes() {
+export function useObserveFollowingTomatoes() {
   const following = useFollowing();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -61,22 +78,9 @@ export function useObseveFollowingTomatoes() {
 export function stop_tomato(dispatch, tomato_id, uid, is_on) {
   const end_time_current_tomato = new Date();
   if (is_on) {
-    if (tomato_id !== "break") {
-      db.update_tomato_end_date(tomato_id, uid, end_time_current_tomato);
-    }
+    db.update_tomato_end_date(tomato_id, uid, end_time_current_tomato);
     dispatch({ type: "STOP_TOMATO" });
   }
-}
-
-export function start_break(state, dispatch) {
-  const tomato = state.my_tomato;
-  const uid = state.user.uid;
-  stop_tomato(dispatch, tomato.tomato_id, uid, tomato.is_on);
-  const start_time = new Date();
-  dispatch({
-    type: "START_BREAK",
-    start_time
-  });
 }
 
 export function useGetPersonalInfos() {

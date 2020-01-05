@@ -36,9 +36,6 @@ function user(
 }
 
 const default_timer = {
-  tomato_id: null,
-  start_time: null,
-  duration: null,
   is_on: false
 };
 
@@ -50,22 +47,12 @@ function my_tomato(state = default_timer, action) {
         tomato_id: action.tomato_id,
         start_time: action.start_time,
         is_on: true,
-        duration: TOMATO_TIME
-      };
-    case "START_BREAK":
-      return {
-        ...state,
-        tomato_id: "break",
-        start_time: action.start_time,
-        is_on: true,
-        duration: BREAK_TIME
+        duration: action.duration,
+        type: "TOMATO",
+        tomato_type: action.tomato_type
       };
     case "STOP_TOMATO":
-    case "STOP_BREAK":
-      return {
-        ...state,
-        ...default_timer
-      };
+      return default_timer;
     case "FETCH_USER_SUCCESS":
       return {
         ...state,

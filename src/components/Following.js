@@ -6,7 +6,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import { useFollowingTomatoes } from "../selectors";
 import { Timer } from "./Timer";
-import { useGetPersonalInfos, useObseveFollowingTomatoes } from "../actions";
+import { useGetPersonalInfos, useObserveFollowingTomatoes } from "../actions";
 
 function FollowingTomato({ following }) {
   return (
@@ -26,7 +26,7 @@ function FollowingTomato({ following }) {
 export default function Following() {
   const following_tomatoes = useFollowingTomatoes();
   console.log("following_tomatoes", following_tomatoes);
-  useObseveFollowingTomatoes();
+  useObserveFollowingTomatoes();
   useGetPersonalInfos();
   return (
     <List>

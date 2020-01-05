@@ -1,7 +1,7 @@
 import ButtonGroup from "@material-ui/core/ButtonGroup/ButtonGroup";
 import Button from "@material-ui/core/Button/Button";
 import connect from "react-redux/es/connect/connect";
-import { start_break, start_tomato } from "../actions";
+import { start_tomato } from "../actions";
 import React from "react";
 
 const ControlPanel = ({ start_pomodoro, start_break }) => (
@@ -18,8 +18,8 @@ const ControlPanelContainer = connect(
   dispatch => ({ dispatch }),
   (state, { dispatch }) => {
     return {
-      start_pomodoro: () => start_tomato(state, dispatch),
-      start_break: () => start_break(state, dispatch)
+      start_pomodoro: () => start_tomato(state, dispatch, "tomato"),
+      start_break: () => start_tomato(state, dispatch, "break")
     };
   }
 )(ControlPanel);

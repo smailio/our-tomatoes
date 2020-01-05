@@ -1,13 +1,14 @@
 import firebase from "firebase/app";
 import { db } from "./initFirebase";
 
-export function add_tomato(start_time, duration, uid) {
+export function add_tomato(start_time, duration, uid, tomato_type) {
   return db
     .collection("tomatoes")
     .add({
       start_time,
       duration,
-      uid
+      uid,
+      tomato_type
     })
     .then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
