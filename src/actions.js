@@ -31,17 +31,7 @@ export function start_tomato(state, dispatch, tomato_type) {
     );
     dispatch({ type: "STOP_TOMATO" });
   }
-  db.add_tomato(start_time_next_tomato, duration, uid, tomato_type).then(
-    tomato_id => {
-      dispatch({
-        type: "START_TOMATO",
-        tomato_id,
-        start_time: start_time_next_tomato,
-        tomato_type,
-        duration
-      });
-    }
-  );
+  db.add_tomato(start_time_next_tomato, duration, uid, tomato_type);
 }
 
 export function useGetOtherGuyTomato(uid) {

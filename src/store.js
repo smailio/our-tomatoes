@@ -1,7 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 // Logger with default options
 import logger from "redux-logger";
-import { TOMATO_TIME, BREAK_TIME } from "./constants";
 
 function user(
   state = {
@@ -41,7 +40,7 @@ const default_timer = {
 
 function my_tomato(state = default_timer, action) {
   switch (action.type) {
-    case "START_TOMATO":
+    case "GET_TOMATO_SUCCESS":
       return {
         ...state,
         tomato_id: action.tomato_id,
@@ -53,13 +52,6 @@ function my_tomato(state = default_timer, action) {
       };
     case "STOP_TOMATO":
       return default_timer;
-    case "FETCH_USER_SUCCESS":
-      return {
-        ...state,
-        tomato_id: action.tomato_id,
-        start_time: action.start_time,
-        is_on: action.is_on
-      };
     default:
       return state;
   }

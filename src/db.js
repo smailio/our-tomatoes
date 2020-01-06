@@ -60,24 +60,6 @@ export function update_tomato_end_date(tomato_id, uid, end_time) {
     });
 }
 
-export function get_tomato(uid) {
-  return db
-    .collection("tomato")
-    .doc(uid)
-    .get()
-    .then(doc => doc.data())
-    .then(tomato => {
-      console.log("getting tomato", tomato);
-      return tomato
-        ? {
-            ...tomato,
-            start_time: tomato.start_time ? tomato.start_time.toDate() : null,
-            end_time: tomato.end_time ? tomato.end_time.toDate() : null
-          }
-        : null;
-    });
-}
-
 function fix_dates(tomato) {
   if (!tomato) return tomato;
   else {

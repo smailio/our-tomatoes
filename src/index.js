@@ -23,15 +23,15 @@ firebase.auth().onAuthStateChanged(function(user) {
 
     console.log("updating guy info in DB", uid, display_name, photo_url);
     add_personal_info(uid, display_name, photo_url);
+    store.dispatch({
+      type: "FETCH_USER_SUCCESS",
+      uid,
+      email,
+      display_name,
+      photo_url
+    });
     observe_tomato(uid, tomato => {
       console.log("get tomato ", tomato);
-      store.dispatch({
-        type: "FETCH_USER_SUCCESS",
-        uid,
-        email,
-        display_name,
-        photo_url
-      });
       if (!tomato) {
         console.log(
           "tomato doesn't exist yet in database, this is the" +
@@ -46,7 +46,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         tomato.start_time.getTime() + tomato.duration * 60 * 1000
       ) {
         store.dispatch({
-          type: "START_TOMATO",
+          type: "GET_TOMATO_SUCCESS",
           ...tomato
         });
       } else {
