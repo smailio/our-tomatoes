@@ -1,9 +1,11 @@
 import React, { useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useGetOtherGuyTomato } from "../actions";
 import OtherGyTomato from "./OtherGuyTomato";
-import Button from "@material-ui/core/Button/Button";
+import Button from "@material-ui/core/Button";
+import Fab from "@material-ui/core/Fab";
+import HomeIcon from "@material-ui/icons/Home";
 
 import { useFollowing, useMyUid } from "../selectors";
 import * as db from "../db";
@@ -28,6 +30,16 @@ function FollowButton({ uid_to_follow }) {
   );
 }
 
+function HomeButton(props) {
+  return (
+    <Button color="primary">
+      <Link to="/">
+        <HomeIcon />
+      </Link>
+    </Button>
+  );
+}
+
 const OtherGuyPage = () => {
   let { uid } = useParams();
   useGetOtherGuyTomato(uid);
@@ -40,6 +52,7 @@ const OtherGuyPage = () => {
   }
   return (
     <div>
+      <HomeButton />
       <OtherGyTomato uid={uid} />
       <FollowButton uid_to_follow={uid} />
     </div>
