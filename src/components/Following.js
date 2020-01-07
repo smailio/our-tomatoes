@@ -7,6 +7,7 @@ import ListItem from "@material-ui/core/ListItem";
 import { useFollowingTomatoes } from "../selectors";
 import { Timer } from "./Timer";
 import { useGetPersonalInfos, useObserveFollowingTomatoes } from "../actions";
+import { Link } from "react-router-dom";
 
 function FollowingTomato({ following }) {
   return (
@@ -42,10 +43,13 @@ export default function Following() {
           return (
             <ListItem key={following.uid}>
               <ListItemAvatar>
-                <Avatar
-                  alt={following.personal_info.display_name}
-                  src={following.personal_info.photo_url}
-                />
+                <Link to={`${following.uid}`}>
+                  {" "}
+                  <Avatar
+                    alt={following.personal_info.display_name}
+                    src={following.personal_info.photo_url}
+                  />
+                </Link>
               </ListItemAvatar>
               <ListItemText
                 primary={<FollowingTomato following={following} />}

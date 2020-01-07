@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { useGetOtherGuyTomato } from "../actions";
 import OtherGyTomato from "./OtherGuyTomato";
 import Button from "@material-ui/core/Button";
-import Fab from "@material-ui/core/Fab";
 import HomeIcon from "@material-ui/icons/Home";
 
 import { useFollowing, useMyUid } from "../selectors";
