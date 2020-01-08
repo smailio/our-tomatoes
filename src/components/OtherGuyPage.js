@@ -6,7 +6,7 @@ import OtherGyTomato from "./OtherGuyTomato";
 import Button from "@material-ui/core/Button";
 import HomeIcon from "@material-ui/icons/Home";
 
-import { useFollowing, useMyUid } from "../selectors";
+import { useFollowing, useMyUid, remove_following } from "../selectors";
 import * as db from "../db";
 
 function FollowButton({ uid_to_follow }) {
@@ -15,10 +15,13 @@ function FollowButton({ uid_to_follow }) {
   const follow = useCallback(() => {
     db.add_following(uid, uid_to_follow);
   }, [uid, uid_to_follow]);
+  const un_follow = useCallback(() => {
+    db.remove_following(uid, uid_to_follow);
+  }, [uid, uid_to_follow]);
   if (following.includes(uid_to_follow)) {
     return (
-      <Button variant="outlined" disabled>
-        FOLLOW
+      <Button variant="outlined" onClick={un_follow}>
+        UN-FOLLOW
       </Button>
     );
   }

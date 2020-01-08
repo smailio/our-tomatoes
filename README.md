@@ -35,12 +35,14 @@ par of the screen blink ? only the text blink ?
 ## TODO
 - layout 
 - bigger text on big screen
-- make the break behave like a normal timer
 - make the screen bling when timer finish
-- add a home button 
-- add an unfollow button in 
+- replace Timer is Off by a better message 
+- add indication that a following is on a break
 ## DONE
+- make the break behave like a normal timer
 - add duration in firebase
 - Following
 - OtherGyTomato
 - add redirect / => /myid
+- add a home button 
+- add an un-follow button in 

@@ -99,6 +99,23 @@ export function add_following(my_uid, uid_to_follow) {
     });
 }
 
+export function remove_following(my_uid, uid_to_follow) {
+  return db
+    .collection("following")
+    .doc(my_uid)
+    .set(
+      { user_ids: firebase.firestore.FieldValue.arrayRemove(uid_to_follow) },
+      { merge: true }
+    )
+    .then(doc => {
+      console.log(`successfully un-followed user ${uid_to_follow}!`, doc);
+      return true;
+    })
+    .catch(error => {
+      console.log(`Error un-following user ${uid_to_follow}`, error);
+    });
+}
+
 export function observe_following(uid, callback) {
   return db
     .collection("following")
