@@ -5,8 +5,7 @@ import { useGetOtherGuyTomato } from "../actions";
 import OtherGyTomato from "./OtherGuyTomato";
 import Button from "@material-ui/core/Button";
 import HomeIcon from "@material-ui/icons/Home";
-
-import { useFollowing, useMyUid, remove_following } from "../selectors";
+import { useFollowing, useMyUid } from "../selectors";
 import * as db from "../db";
 
 function FollowButton({ uid_to_follow }) {

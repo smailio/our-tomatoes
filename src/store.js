@@ -47,7 +47,6 @@ function my_tomato(state = default_timer, action) {
         start_time: action.start_time,
         is_on: true,
         duration: action.duration,
-        type: "TOMATO",
         tomato_type: action.tomato_type
       };
     case "STOP_TOMATO":

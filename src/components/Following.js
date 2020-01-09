@@ -5,7 +5,7 @@ import Avatar from "@material-ui/core/Avatar";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import { useFollowingTomatoes } from "../selectors";
-import { Timer } from "./Timer";
+import { Timer, is_on_a_break } from "./Timer";
 import { useGetPersonalInfos, useObserveFollowingTomatoes } from "../actions";
 import { Link } from "react-router-dom";
 
@@ -53,6 +53,7 @@ export default function Following() {
               </ListItemAvatar>
               <ListItemText
                 primary={<FollowingTomato following={following} />}
+                secondary={is_on_a_break(following.tomato) ? "On a break" : ""}
                 primaryTypographyProps={{ variant: "h4" }}
               />
             </ListItem>

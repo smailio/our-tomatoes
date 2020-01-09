@@ -19,7 +19,8 @@ export function add_tomato(start_time, duration, uid, tomato_type) {
           tomato_id: docRef.id,
           start_time,
           duration,
-          is_on: true
+          is_on: true,
+          tomato_type
         })
         .then(() => docRef.id);
     })

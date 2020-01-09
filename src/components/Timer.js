@@ -13,6 +13,10 @@ function is_on(tomato) {
   return now_ms < start_time_ms + duration_ms || now_ms < end_time_ms;
 }
 
+export function is_on_a_break(tomato) {
+  return is_on(tomato) && tomato.tomato_type === "break";
+}
+
 function elapsed_minutes_since(date) {
   if (!date) {
     console.error("date should not be undefined or null", date);
