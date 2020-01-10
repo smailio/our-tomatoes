@@ -35,6 +35,7 @@ par of the screen blink ? only the text blink ?
 ## TODO
 - layout 
 - bigger text on big screen
+- add sound alarm on end of my own timer 
 - make the screen bling when timer finish
 - replace Timer is Off by a better message 
 - add indication that a following is on a break
