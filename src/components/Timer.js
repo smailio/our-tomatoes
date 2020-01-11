@@ -82,7 +82,7 @@ function TimerOn({ start_time, is_on, duration, on_finish }) {
   return <span>{remaining_minutes}</span>;
 }
 
-function Timer({ tomato, on_finish }) {
+function Timer({ tomato, on_finish, off_label }) {
   let [_is_on, setIsOn] = useState(is_on(tomato));
   _is_on = is_on(tomato);
   useEffect(() => {
@@ -94,7 +94,7 @@ function Timer({ tomato, on_finish }) {
   });
   if (!_is_on) {
     console.log("Timer is off", tomato);
-    return <span>Timer off</span>;
+    return <span>{off_label}</span>;
   } else return <TimerOn {...{ is_on: _is_on, ...tomato, on_finish }} />;
 }
 

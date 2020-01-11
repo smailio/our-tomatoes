@@ -4,10 +4,10 @@ import { stop_tomato } from "../actions";
 import { Timer } from "./Timer";
 import Typography from "@material-ui/core/Typography";
 
-function MyTomato({ tomato, on_finish }) {
+function MyTomato({ tomato, on_finish, off_label }) {
   return (
     <Typography variant="h3">
-      <Timer tomato={tomato} on_finish={on_finish} />
+      <Timer tomato={tomato} on_finish={on_finish} off_label={off_label} />
     </Typography>
   );
 }
@@ -18,7 +18,8 @@ const MyTomatoContainer = connect(
     on_finish: (tomato_id, uid, is_on) =>
       stop_tomato(dispatch, tomato_id, uid, is_on)
   }),
-  (state_props, dispatch_props) => ({
+  (state_props, dispatch_props, other_props) => ({
+    ...other_props,
     ...state_props,
     on_finish: () =>
       dispatch_props.on_finish(

@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import MyTomato from "./MyTomato";
 import ControlPanel from "./ControlPanel";
 import Following from "./Following";
 
 const MyPage = () => {
+  const [off_label, set_off_label] = useState("OFF");
   return (
     <div>
-      <MyTomato />
+      <MyTomato off_label={off_label} />
       <ControlPanel />
       <Following />
     </div>
