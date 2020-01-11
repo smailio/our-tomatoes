@@ -8,7 +8,7 @@ const MyPage = () => {
   return (
     <div>
       <MyTomato off_label={off_label} />
-      <ControlPanel />
+      <ControlPanel set_off_label={set_off_label} />
       <Following />
     </div>
   );

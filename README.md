@@ -36,6 +36,7 @@ par of the screen blink ? only the text blink ?
 - layout 
 - bigger text on big screen
 - add sound alarm on end of my own timer 
+- add alarms in redux store 
 - make the screen bling when timer finish
 - replace Timer is Off by a better message 
 - add indication that a following is on a break
@@ -46,4 +47,6 @@ par of the screen blink ? only the text blink ?
 - OtherGyTomato
 - add redirect / => /myid
 - add a home button 
-- add an un-follow button in 
+- add an un-follow button in
+- add indication that a following is on a break
+- add duration preview in timer
