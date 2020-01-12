@@ -1,7 +1,7 @@
 import React from "react";
 import connect from "react-redux/es/connect/connect";
 import { stop_tomato } from "../actions";
-import { Timer } from "./Timer";
+import Timer from "./Timer";
 import Typography from "@material-ui/core/Typography";
 
 function MyTomato(props) {

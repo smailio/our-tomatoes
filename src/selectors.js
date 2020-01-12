@@ -1,11 +1,11 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 export function useFollowing() {
-  return useSelector(state => state.following);
+  return useSelector(state => state.following, shallowEqual);
 }
 
 export function useMyUid() {
-  return useSelector(state => state.user.uid);
+  return useSelector(state => state.user.uid, shallowEqual);
 }
 
 export function useFollowingTomatoes() {
@@ -20,5 +20,5 @@ export function useFollowingTomatoes() {
         tomato: other_guys_tomatoes[uid]
       };
     });
-  });
+  }, shallowEqual);
 }

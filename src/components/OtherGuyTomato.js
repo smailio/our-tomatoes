@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Timer } from "./Timer";
+import Timer from "./Timer";
 
 function OtherGyTomato({ uid }) {
   const tomato = useSelector(state => state.other_guys_tomatoes[uid]);
