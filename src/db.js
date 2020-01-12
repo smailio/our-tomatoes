@@ -31,6 +31,7 @@ export function add_tomato(start_time, duration, uid, tomato_type) {
 }
 
 export function update_tomato_end_date(tomato_id, uid, end_time) {
+  console.log("DB update_tomato_end_date", tomato_id, uid, end_time);
   return db
     .collection("tomatoes")
     .doc(tomato_id)

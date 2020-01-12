@@ -5,7 +5,12 @@ import connect from "react-redux/es/connect/connect";
 import { start_tomato } from "../actions";
 import { TOMATO_TIME, BREAK_TIME } from "../constants";
 
-const ControlPanel = ({ start_pomodoro, start_break, set_off_label }) => {
+const ControlPanel = ({
+  start_pomodoro,
+  start_break,
+  set_off_label,
+  my_tomato_is_loading
+}) => {
   const off_label_tomato = useCallback(() => set_off_label(TOMATO_TIME), [
     set_off_label
   ]);
@@ -19,6 +24,7 @@ const ControlPanel = ({ start_pomodoro, start_break, set_off_label }) => {
     <div>
       <ButtonGroup color="primary" aria-label="control panel">
         <Button
+          disabled={my_tomato_is_loading}
           onClick={start_pomodoro}
           onMouseEnter={off_label_tomato}
           onMouseLeave={reset_off_label}
@@ -26,6 +32,7 @@ const ControlPanel = ({ start_pomodoro, start_break, set_off_label }) => {
           POMODORO
         </Button>
         <Button
+          disabled={my_tomato_is_loading}
           onClick={start_break}
           onMouseEnter={off_label_break}
           onMouseLeave={reset_off_label}
@@ -43,6 +50,7 @@ const ControlPanelContainer = connect(
   (state, { dispatch }, other_props) => {
     return {
       ...other_props,
+      my_tomato_is_loading: state.my_tomato.is_loading,
       start_pomodoro: () => start_tomato(state, dispatch, "tomato"),
       start_break: () => start_tomato(state, dispatch, "break")
     };

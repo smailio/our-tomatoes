@@ -35,11 +35,22 @@ function user(
 }
 
 const default_timer = {
-  is_on: false
+  is_on: false,
+  is_loading: false
 };
 
 function my_tomato(state = default_timer, action) {
   switch (action.type) {
+    case "GETTING_TOMATO":
+      return {
+        ...state,
+        tomato_id: action.tomato_id,
+        start_time: action.start_time,
+        is_on: true,
+        duration: action.duration,
+        tomato_type: action.tomato_type,
+        is_loading: true
+      };
     case "GET_TOMATO_SUCCESS":
       return {
         ...state,
@@ -47,7 +58,8 @@ function my_tomato(state = default_timer, action) {
         start_time: action.start_time,
         is_on: true,
         duration: action.duration,
-        tomato_type: action.tomato_type
+        tomato_type: action.tomato_type,
+        is_loading: false
       };
     case "STOP_TOMATO":
       return default_timer;
