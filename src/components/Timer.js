@@ -87,6 +87,8 @@ function Timer({ tomato, on_finish, off_label }) {
   if (!_is_on) {
     console.log("Timer is off", tomato);
     return <span>{off_label}</span>;
+  } else if (over_write_label) {
+    return <span>{over_write_label}</span>;
   } else return <TimerOn {...{ is_on: _is_on, ...tomato, on_finish }} />;
 }
 

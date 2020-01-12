@@ -4,10 +4,10 @@ import { stop_tomato } from "../actions";
 import { Timer } from "./Timer";
 import Typography from "@material-ui/core/Typography";
 
-function MyTomato({ tomato, on_finish, off_label }) {
+function MyTomato(props) {
   return (
     <Typography variant="h3">
-      <Timer tomato={tomato} on_finish={on_finish} off_label={off_label} />
+      <Timer {...props} />
     </Typography>
   );
 }
