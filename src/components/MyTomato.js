@@ -13,19 +13,20 @@ function MyTomato({ tomato, on_finish, off_label }) {
 }
 
 const MyTomatoContainer = connect(
-  state => ({ tomato: state.my_tomato }),
+  state => ({ tomato: state.my_tomato, uid: state.user.uid }),
   dispatch => ({
-    on_finish: (tomato_id, uid, is_on) =>
-      stop_tomato(dispatch, tomato_id, uid, is_on)
+    on_finish: (tomato_id, uid, is_on, is_loading) =>
+      stop_tomato(dispatch, tomato_id, uid, is_on, is_loading)
   }),
   (state_props, dispatch_props, other_props) => ({
     ...other_props,
     ...state_props,
     on_finish: () =>
       dispatch_props.on_finish(
-        state_props.tomato_id,
+        state_props.tomato.tomato_id,
         state_props.uid,
-        state_props.is_on
+        state_props.tomato.is_on,
+        state_props.tomato.is_loading
       )
   })
 )(MyTomato);
