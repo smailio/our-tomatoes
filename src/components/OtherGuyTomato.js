@@ -8,6 +8,7 @@ function OtherGyTomato({ uid }) {
   return (
     <Timer
       tomato={{ ...tomato }}
+      off_label={"Just chilling"}
       on_finish={() => {
         console.log("BLINK BLINK TOMATO FINISHES ", tomato);
       }}
