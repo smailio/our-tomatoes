@@ -28,8 +28,12 @@ export function start_tomato(state, dispatch, tomato_type) {
       my_tomato.tomato_id,
       uid,
       end_time_current_tomato
+    ).then(() =>
+      db.add_tomato(start_time_next_tomato, duration, uid, tomato_type)
     );
     dispatch({ type: "STOP_TOMATO" });
+  } else {
+    db.add_tomato(start_time_next_tomato, duration, uid, tomato_type);
   }
   dispatch({
     type: "GETTING_TOMATO",
@@ -39,7 +43,6 @@ export function start_tomato(state, dispatch, tomato_type) {
     tomato_id: "will receive soon from server",
     tomato_type
   });
-  db.add_tomato(start_time_next_tomato, duration, uid, tomato_type);
 }
 
 export function useGetOtherGuyTomato(uid) {

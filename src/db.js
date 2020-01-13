@@ -33,32 +33,38 @@ export function add_tomato(start_time, duration, uid, tomato_type) {
 export function update_tomato_end_date(tomato_id, uid, end_time) {
   console.log("DB update_tomato_end_date", tomato_id, uid, end_time);
   return db
-    .collection("tomatoes")
-    .doc(tomato_id)
-    .set(
-      {
-        end_time
-      },
-      { merge: true }
-    )
-    .then(function() {
-      return db
-        .collection("tomato")
-        .doc(uid)
-        .set(
-          {
-            end_time,
-            is_on: false
-          },
-          { merge: true }
-        )
-        .then(() => {
-          console.log(`Tomato ${tomato_id} successfully stopped!`);
-          return true;
+    .runTransaction(function(transaction) {
+      const tomato_ref = db.collection("tomato").doc(uid);
+      const tomatoes_ref = db.collection("tomatoes").doc(tomato_id);
+      return transaction.get(tomatoes_ref).then(function(tomatoes_doc) {
+        if (!tomatoes_doc.exists) {
+          throw TypeError("Document does not exist!" + tomato_id);
+        }
+        return transaction.get(tomato_ref).then(tomato_doc => {
+          const current_tomato = tomato_doc.data();
+          if (current_tomato.tomato_id !== tomatoes_ref.id) {
+            throw TypeError(
+              `Inconsistent tomato update ${current_tomato.tomato_id} !== ${
+                tomatoes_ref.id
+              }`
+            );
+          }
+          const tomato = tomatoes_doc.data();
+          if (tomato.end_time) {
+            throw TypeError(
+              `End time has already been set for this tomato ${tomato_id}`
+            );
+          }
+          transaction.update(tomato_ref, { end_time });
+          transaction.update(tomatoes_ref, { end_time, is_on: false });
         });
+      });
+    })
+    .then(function() {
+      console.log("update_tomato_end_date Transaction successfully committed!");
     })
     .catch(function(error) {
-      console.error(`Error stopping tomato: ${tomato_id}`, error);
+      console.log("update_tomato_end_date Transaction failed: ", error);
     });
 }
 
