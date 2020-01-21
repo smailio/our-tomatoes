@@ -55,7 +55,7 @@ export default memo(function Following() {
               <ListItemText
                 primary={<FollowingTomato following={following} />}
                 secondary={is_on_a_break(following.tomato) ? "On a break" : ""}
-                primaryTypographyProps={{ variant: "h4" }}
+                primaryTypographyProps={{ variant: "h2" }}
               />
             </ListItem>
           );

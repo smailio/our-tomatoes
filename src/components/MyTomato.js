@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 
 function MyTomato(props) {
   return (
-    <Typography variant="h3">
+    <Typography variant="h1">
       <Timer {...props} />
     </Typography>
   );

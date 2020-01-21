@@ -35,11 +35,9 @@ par of the screen blink ? only the text blink ?
 ## TODO
 - layout 
 - bigger text on big screen
-- add sound alarm on end of my own timer 
 - add alarms in redux store 
 - make the screen bling when timer finish
-- replace Timer is Off by a better message 
-- add indication that a following is on a break
+- add sound alarm on end of my own timer 
 ## DONE
 - make the break behave like a normal timer
 - add duration in firebase
@@ -50,3 +48,5 @@ par of the screen blink ? only the text blink ?
 - add an un-follow button in
 - add indication that a following is on a break
 - add duration preview in timer
+- add indication that a following is on a break
+- replace Timer is Off by a better message 
