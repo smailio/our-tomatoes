@@ -20,12 +20,21 @@ const ControlPanel = ({
   const reset_off_label = useCallback(() => set_off_label("OFF"), [
     set_off_label
   ]);
+  const start_pomodoro2 = useCallback(() => {
+    start_pomodoro();
+    set_off_label("OFF");
+  }, [set_off_label, start_pomodoro]);
+  const start_break2 = useCallback(() => {
+    start_break();
+    set_off_label("OFF");
+  }, [set_off_label, start_break]);
+
   return (
     <div>
       <ButtonGroup color="primary" aria-label="control panel">
         <Button
           disabled={my_tomato_is_loading}
-          onClick={start_pomodoro}
+          onClick={start_pomodoro2}
           onMouseEnter={off_label_tomato}
           onMouseLeave={reset_off_label}
         >
@@ -33,7 +42,7 @@ const ControlPanel = ({
         </Button>
         <Button
           disabled={my_tomato_is_loading}
-          onClick={start_break}
+          onClick={start_break2}
           onMouseEnter={off_label_break}
           onMouseLeave={reset_off_label}
         >

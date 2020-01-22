@@ -13,7 +13,7 @@ function FollowingTomato({ following }) {
   return (
     <Timer
       tomato={following.tomato}
-      off_label={"Just chilling"}
+      off_label={"is just chilling"}
       on_finish={() => {
         console.log(
           `${following.uid} ${
