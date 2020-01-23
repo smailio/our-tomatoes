@@ -56,8 +56,8 @@ function useTimer(start_time, duration) {
 }
 
 function TimerOn({ start_time, is_on, duration, on_finish }) {
-  console.log("TimerOn", { start_time, is_on, duration, on_finish });
   const remaining = useTimer(start_time, duration);
+  console.log("TimerOn", { start_time, is_on, duration, on_finish, remaining });
   useEffect(() => {
     if (is_on && remaining <= 0) {
       console.log(`Timer is finnished calling on_finish ${is_on} ${remaining}`);

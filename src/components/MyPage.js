@@ -8,25 +8,29 @@ import { Divider } from "@material-ui/core";
 const MyPage = () => {
   const [off_label, set_off_label] = useState("OFF");
   return (
-    <Grid
-      container
-      direction="column"
-      alignItems="center"
-      justify="center"
-      spacing={1}
-    >
-      <Grid item>
-        <MyTomato
-          off_label={off_label}
-          over_write_label={off_label !== "OFF" ? off_label : ""}
-        />
-      </Grid>
-      <Grid item>
-        <ControlPanel set_off_label={set_off_label} />
-      </Grid>
-      <Divider variant="middle" />
-      <Grid item>
-        <Following />
+    <Grid container spacing={0}>
+      <Grid item xs={12}>
+        <Grid
+          container
+          direction="column"
+          alignItems="center"
+          justify="center"
+          spacing={1}
+        >
+          <Grid item>
+            <MyTomato
+              off_label={off_label}
+              over_write_label={off_label !== "OFF" ? off_label : ""}
+            />
+          </Grid>
+          <Grid item>
+            <ControlPanel set_off_label={set_off_label} />
+          </Grid>
+          <Divider variant="middle" />
+          <Grid item>
+            <Following />
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   );

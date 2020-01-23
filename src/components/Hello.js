@@ -15,7 +15,7 @@ const Hello = ({ uid }) => {
       alignItems="center"
       justify="center"
       style={{ marginTop: "20vh" }}
-      spacing={8}
+      spacing={0}
     >
       <Grid item xs={12}>
         <Switch>
