@@ -14,10 +14,9 @@ const Hello = ({ uid }) => {
       direction="column"
       alignItems="center"
       justify="center"
-      style={{ marginTop: "20vh" }}
       spacing={0}
     >
-      <Grid item xs={12}>
+      <Grid item xs={8}>
         <Switch>
           <Route path={`/${uid}`}>
             <MyPage />

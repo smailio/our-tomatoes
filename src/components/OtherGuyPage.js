@@ -5,6 +5,7 @@ import { useGetOtherGuyTomato } from "../actions";
 import OtherGyTomato from "./OtherGuyTomato";
 import Button from "@material-ui/core/Button";
 import HomeIcon from "@material-ui/icons/Home";
+import Grid from "@material-ui/core/Grid";
 import { useFollowing, useMyUid } from "../selectors";
 import * as db from "../db";
 
@@ -19,13 +20,13 @@ function FollowButton({ uid_to_follow }) {
   }, [uid, uid_to_follow]);
   if (following.includes(uid_to_follow)) {
     return (
-      <Button variant="outlined" onClick={un_follow}>
+      <Button variant="text" onClick={un_follow}>
         UN-FOLLOW
       </Button>
     );
   }
   return (
-    <Button variant="outlined" onClick={follow} color="primary">
+    <Button variant="text" onClick={follow} color="primary">
       FOLLOW
     </Button>
   );
@@ -52,11 +53,27 @@ const OtherGuyPage = () => {
     return <div>This user is doesn't exists</div>;
   }
   return (
-    <div>
-      <HomeButton />
-      <OtherGyTomato uid={uid} />
-      <FollowButton uid_to_follow={uid} />
-    </div>
+    <Grid
+      container
+      direction="column"
+      alignItems="center"
+      justify="center"
+      spacing={3}
+    >
+      <Grid item style={{ height: "19vh" }}>
+        <Grid container style={{ height: "9vh" }} alignItems="flex-end">
+          <Grid item>
+            <HomeButton />
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item>
+        <OtherGyTomato uid={uid} />
+      </Grid>
+      <Grid item>
+        <FollowButton uid_to_follow={uid} />
+      </Grid>
+    </Grid>
   );
 };
 
