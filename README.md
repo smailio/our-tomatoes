@@ -33,12 +33,20 @@
 par of the screen blink ? only the text blink ? 
 
 ## TODO
-- layout 
 - bigger text on big screen
-- add alarms in redux store 
-- make the screen bling when timer finish
-- add sound alarm on end of my own timer 
+- make the screen blink when timer finish
+- change icon 
+- change title
+- add settings
+    - pomodoro time 
+    - break time 
+    - disable sound alarm
+    - disable blinking
+    - custom alarm
+- on mobile send notification when screen is off
 ## DONE
+- layout 
+- add sound alarm on end of my own timer 
 - make the break behave like a normal timer
 - add duration in firebase
 - Following
