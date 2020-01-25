@@ -1,4 +1,5 @@
 import React, { useState, useEffect, memo } from "react";
+import { Howl, Howler } from "howler";
 
 const ONE_SECOND = 1000;
 
@@ -74,12 +75,7 @@ function TimerOn({ start_time, is_on, duration, on_finish }) {
   return <span>{Math.floor(remaining / 60)}</span>;
 }
 
-export default memo(function Timer({
-  tomato,
-  on_finish,
-  off_label,
-  over_write_label = null
-}) {
+function Timer({ tomato, on_finish, off_label, over_write_label = null }) {
   let [_is_on, setIsOn] = useState(is_on(tomato));
   _is_on = is_on(tomato);
   useEffect(() => {
@@ -94,4 +90,22 @@ export default memo(function Timer({
   } else if (over_write_label) {
     return <span>{over_write_label}</span>;
   } else return <TimerOn {...{ is_on: _is_on, ...tomato, on_finish }} />;
+}
+
+export const TimerWithSound = memo(function({ on_finish, ...props }) {
+  function on_finish_plus_sound() {
+    const sound2 = new Howl({
+      src: ["/jinglesncf.mp3"]
+    });
+    const sound = new Howl({
+      src: ["/jinglesncf.mp3"],
+      onend: () => sound2.play()
+    });
+    // Play the sound.
+    sound.play();
+    on_finish();
+  }
+  return <Timer on_finish={on_finish_plus_sound} {...props} />;
 });
+
+export default memo(Timer);
