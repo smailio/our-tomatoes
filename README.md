@@ -35,8 +35,6 @@ par of the screen blink ? only the text blink ?
 ## TODO
 - bigger text on big screen
 - make the screen blink when timer finish
-- change icon 
-- change title
 - add settings
     - pomodoro time 
     - break time 
@@ -60,3 +58,6 @@ par of the screen blink ? only the text blink ?
 - add duration preview in timer
 - add indication that a following is on a break
 - replace Timer is Off by a better message 
+- change icon 
+- change title
+
