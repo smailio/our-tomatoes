@@ -44,6 +44,8 @@ par of the screen blink ? only the text blink ?
     - disable blinking
     - custom alarm
 - on mobile send notification when screen is off
+- put all chilling following together
+- add break indication on OtherGuyPage
 ## DONE
 - layout 
 - add sound alarm on end of my own timer 
