@@ -3,7 +3,7 @@ import { Howl, Howler } from "howler";
 
 const ONE_SECOND = 1000;
 
-function is_on(tomato) {
+export function is_on(tomato) {
   if (!tomato.start_time) {
     return false;
   }
