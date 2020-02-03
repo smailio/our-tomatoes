@@ -4,6 +4,7 @@ import ControlPanel from "./ControlPanel";
 import Following from "./Following";
 import { Grid } from "@material-ui/core";
 import { Divider } from "@material-ui/core";
+import { UserAvatar } from "./UserAvatar";
 
 const MyPage = () => {
   const [off_label, set_off_label] = useState("OFF");
@@ -15,7 +16,13 @@ const MyPage = () => {
       justify="center"
       spacing={2}
     >
-      <Grid item style={{ height: "19VH" }} />
+      <Grid item style={{ height: "19VH" }}>
+        <Grid container style={{ height: "19vh" }} alignItems="center">
+          <Grid item>
+            <UserAvatar />
+          </Grid>
+        </Grid>
+      </Grid>
       <Grid item>
         <MyTomato
           off_label={off_label}

@@ -42,8 +42,11 @@ par of the screen blink ? only the text blink ?
     - disable blinking
     - custom alarm
 - on mobile send notification when screen is off
-- put all chilling following together
-- add break indication on OtherGuyPage
+- add avatar in other guy page header
+- add statistics page 
+    - tomato timer per day
+    - successful / un-successful tomatoes
+- make a public version of other guy page
 ## DONE
 - layout 
 - add sound alarm on end of my own timer 
@@ -60,4 +63,6 @@ par of the screen blink ? only the text blink ?
 - replace Timer is Off by a better message 
 - change icon 
 - change title
+- add break indication on OtherGuyPage
+- put all chilling following together
 
