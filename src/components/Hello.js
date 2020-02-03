@@ -4,21 +4,32 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import MyPage from "./MyPage";
 import OtherGuyPage from "./OtherGuyPage";
 import { useObserveFollowing } from "../useObserveFollowing";
+import { Grid } from "@material-ui/core";
 
 const Hello = ({ uid }) => {
   useObserveFollowing();
   return (
-    <Switch>
-      <Route path={`/${uid}`}>
-        <MyPage />
-      </Route>
-      <Route path="/:uid">
-        <OtherGuyPage />
-      </Route>
-      <Route path="/">
-        <Redirect to={{ pathname: `/${uid}` }} />
-      </Route>
-    </Switch>
+    <Grid
+      container
+      direction="column"
+      alignItems="center"
+      justify="center"
+      spacing={0}
+    >
+      <Grid item xs={8}>
+        <Switch>
+          <Route path={`/${uid}`}>
+            <MyPage />
+          </Route>
+          <Route path="/:uid">
+            <OtherGuyPage />
+          </Route>
+          <Route path="/">
+            <Redirect to={{ pathname: `/${uid}` }} />
+          </Route>
+        </Switch>
+      </Grid>
+    </Grid>
   );
 };
 

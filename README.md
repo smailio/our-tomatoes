@@ -33,14 +33,36 @@
 par of the screen blink ? only the text blink ? 
 
 ## TODO
-- layout 
 - bigger text on big screen
-- make the break behave like a normal timer
-- make the screen bling when timer finish
-- add a home button 
-- add an unfollow button in 
+- make the screen blink when timer finish
+- add settings
+    - pomodoro time 
+    - break time 
+    - disable sound alarm
+    - disable blinking
+    - custom alarm
+- on mobile send notification when screen is off
+- add avatar in other guy page header
+- add statistics page 
+    - tomato timer per day
+    - successful / un-successful tomatoes
+- make a public version of other guy page
 ## DONE
+- layout 
+- add sound alarm on end of my own timer 
+- make the break behave like a normal timer
 - add duration in firebase
 - Following
 - OtherGyTomato
 - add redirect / => /myid
+- add a home button 
+- add an un-follow button in
+- add indication that a following is on a break
+- add duration preview in timer
+- add indication that a following is on a break
+- replace Timer is Off by a better message 
+- change icon 
+- change title
+- add break indication on OtherGuyPage
+- put all chilling following together
+

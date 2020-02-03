@@ -4,10 +4,12 @@ import { useSelector } from "react-redux";
 import { useGetOtherGuyTomato } from "../actions";
 import OtherGyTomato from "./OtherGuyTomato";
 import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
 import HomeIcon from "@material-ui/icons/Home";
-
+import Grid from "@material-ui/core/Grid";
 import { useFollowing, useMyUid } from "../selectors";
 import * as db from "../db";
+import { OtherGuyAvatar } from "./UserAvatar";
 
 function FollowButton({ uid_to_follow }) {
   const following = useFollowing();
@@ -15,27 +17,30 @@ function FollowButton({ uid_to_follow }) {
   const follow = useCallback(() => {
     db.add_following(uid, uid_to_follow);
   }, [uid, uid_to_follow]);
+  const un_follow = useCallback(() => {
+    db.remove_following(uid, uid_to_follow);
+  }, [uid, uid_to_follow]);
   if (following.includes(uid_to_follow)) {
     return (
-      <Button variant="outlined" disabled>
-        FOLLOW
+      <Button variant="text" onClick={un_follow}>
+        UN-FOLLOW
       </Button>
     );
   }
   return (
-    <Button variant="outlined" onClick={follow} color="primary">
+    <Button variant="text" onClick={follow} color="primary">
       FOLLOW
     </Button>
   );
 }
 
-function HomeButton(props) {
+function HomeButton() {
   return (
-    <Button color="primary">
+    <IconButton color="secondary" size="medium" aria-label="Home button">
       <Link to="/">
         <HomeIcon />
       </Link>
-    </Button>
+    </IconButton>
   );
 }
 
@@ -50,11 +55,35 @@ const OtherGuyPage = () => {
     return <div>This user is doesn't exists</div>;
   }
   return (
-    <div>
-      <HomeButton />
-      <OtherGyTomato uid={uid} />
-      <FollowButton uid_to_follow={uid} />
-    </div>
+    <Grid
+      container
+      direction="column"
+      alignItems="center"
+      justify="center"
+      spacing={3}
+    >
+      <Grid item style={{ height: "19vh" }}>
+        <Grid
+          container
+          style={{ height: "19vh" }}
+          spacing={1}
+          alignItems="center"
+        >
+          <Grid item>
+            <OtherGuyAvatar uid={uid} />
+          </Grid>
+          <Grid item>
+            <HomeButton />
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item>
+        <OtherGyTomato uid={uid} />
+      </Grid>
+      <Grid item>
+        <FollowButton uid_to_follow={uid} />
+      </Grid>
+    </Grid>
   );
 };
 

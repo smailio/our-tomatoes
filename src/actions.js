@@ -23,15 +23,26 @@ export function start_tomato(state, dispatch, tomato_type) {
   const start_time_next_tomato = new Date();
   const my_tomato = state.my_tomato;
   const duration = duration_of_tomato_type(tomato_type);
-  if (my_tomato.is_on) {
+  if (my_tomato.is_on && !my_tomato.is_loading) {
     db.update_tomato_end_date(
       my_tomato.tomato_id,
       uid,
       end_time_current_tomato
+    ).then(() =>
+      db.add_tomato(start_time_next_tomato, duration, uid, tomato_type)
     );
     dispatch({ type: "STOP_TOMATO" });
+  } else {
+    db.add_tomato(start_time_next_tomato, duration, uid, tomato_type);
   }
-  db.add_tomato(start_time_next_tomato, duration, uid, tomato_type);
+  dispatch({
+    type: "GETTING_TOMATO",
+    start_time: start_time_next_tomato,
+    duration,
+    uid,
+    tomato_id: "will receive soon from server",
+    tomato_type
+  });
 }
 
 export function useGetOtherGuyTomato(uid) {
@@ -65,9 +76,9 @@ export function useObserveFollowingTomatoes() {
   }, [following, dispatch]);
 }
 
-export function stop_tomato(dispatch, tomato_id, uid, is_on) {
+export function stop_tomato(dispatch, tomato_id, uid, is_on, is_loading) {
   const end_time_current_tomato = new Date();
-  if (is_on) {
+  if (is_on && !is_loading) {
     db.update_tomato_end_date(tomato_id, uid, end_time_current_tomato);
     dispatch({ type: "STOP_TOMATO" });
   }
