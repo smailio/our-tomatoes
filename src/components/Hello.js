@@ -5,6 +5,7 @@ import MyPage from "./MyPage";
 import OtherGuyPage from "./OtherGuyPage";
 import { useObserveFollowing } from "../useObserveFollowing";
 import { Grid } from "@material-ui/core";
+import StatisticsPage from "./StatisticsPage";
 
 const Hello = ({ uid }) => {
   useObserveFollowing();
@@ -18,6 +19,9 @@ const Hello = ({ uid }) => {
     >
       <Grid item xs={8}>
         <Switch>
+          <Route path={`/${uid}/statistics`}>
+            <StatisticsPage />
+          </Route>
           <Route path={`/${uid}`}>
             <MyPage />
           </Route>
