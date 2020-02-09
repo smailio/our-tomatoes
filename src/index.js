@@ -7,7 +7,7 @@ import "typeface-roboto";
 import * as firebase from "firebase/app";
 import store from "./store";
 import { Provider } from "react-redux";
-import { add_personal_info, observe_tomato } from "./db";
+import { add_personal_info, observe_tomato, get_my_tomatoes } from "./db";
 import { BrowserRouter as Router } from "react-router-dom";
 
 // firebase.initializeApp(firebaseConfig);
@@ -59,6 +59,11 @@ firebase.auth().onAuthStateChanged(function(user) {
           tomato.duration
         );
       }
+      // fetch all user tomatoes and put them in store
+      store.dispatch({ type: "GET_MY_TOMATOES" });
+      get_my_tomatoes(uid).then(my_tomatoes =>
+        store.dispatch({ type: "GET_MY_TOMATOES_SUCCESS", my_tomatoes })
+      );
     });
   } else {
     // No user is signed in.

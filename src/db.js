@@ -176,3 +176,21 @@ export function get_personal_info(uid) {
       return personal_info;
     });
 }
+
+export function get_my_tomatoes(uid) {
+  return db
+    .collection("tomatoes")
+    .where("uid", "==", uid)
+    .get()
+    .then(snapshot => {
+      if (snapshot.empty) {
+        console.log(`get_my_tomatoes(${uid}) no matching documents.`);
+        return [];
+      }
+      const my_tomatoes = [];
+      snapshot.forEach(doc => {
+        my_tomatoes.push(doc.data());
+      });
+      return my_tomatoes;
+    });
+}

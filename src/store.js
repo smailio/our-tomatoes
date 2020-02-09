@@ -100,6 +100,34 @@ function other_guys_tomatoes(state = {}, action) {
   }
 }
 
+function my_tomatoes(state = {}, action) {
+  switch (action.type) {
+    case "GET_MY_TOMATOES":
+      return {
+        ...state,
+        value: [],
+        is_loading: true,
+        not_found: false
+      };
+    case "GET_MY_TOMATOES_SUCCESS":
+      return {
+        ...state,
+        value: action.my_tomatoes,
+        is_loading: false,
+        not_found: false
+      };
+    case "GET_MY_TOMATOES_FAILED":
+      return {
+        ...state,
+        value: [],
+        is_loading: false,
+        not_found: true
+      };
+    default:
+      return state;
+  }
+}
+
 function following(user_ids = [], action) {
   switch (action.type) {
     case "SET_FOLLOWING":
@@ -127,7 +155,8 @@ const reducer = combineReducers({
   my_tomato,
   other_guys_tomatoes,
   following,
-  personal_info
+  personal_info,
+  my_tomatoes
 });
 
 // const store = createStore(reducer, applyMiddleware(enqueueNotification));
