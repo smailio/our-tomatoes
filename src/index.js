@@ -1,16 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
+import "typeface-roboto";
+import firebase from "@firebase/app";
+import "@firebase/auth";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import "typeface-roboto";
-import * as firebase from "firebase/app";
-import store from "./store";
-import { Provider } from "react-redux";
 import { add_personal_info, observe_tomato, get_my_tomatoes } from "./db";
-import { BrowserRouter as Router } from "react-router-dom";
+import store from "./store";
 
-// firebase.initializeApp(firebaseConfig);
 store.dispatch({ type: "FETCH_USER" });
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
