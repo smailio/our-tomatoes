@@ -39,11 +39,9 @@ function StatisticsPage() {
   }
 
   return (
-    <div>
+    <div style={{ height: "33vh", width: "95vw" }}>
       <ResponsiveCalendar
         data={count_successfyll_tomatoes_per_day(my_tomatoes)}
-        width={500}
-        height={200}
         from="2019-03-01"
         to="2020-07-12"
         emptyColor="#eeeeee"

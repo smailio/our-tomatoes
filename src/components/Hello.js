@@ -17,22 +17,27 @@ const Hello = ({ uid }) => {
       justify="center"
       spacing={0}
     >
-      <Grid item xs={8}>
-        <Switch>
-          <Route path={`/${uid}/statistics`}>
+      <Switch>
+        <Route path={`/${uid}/statistics`}>
+          <Grid item xs={12}>
             <StatisticsPage />
-          </Route>
-          <Route path={`/${uid}`}>
+          </Grid>
+        </Route>
+
+        <Route path={`/${uid}`}>
+          <Grid item xs={8}>
             <MyPage />
-          </Route>
-          <Route path="/:uid">
+          </Grid>
+        </Route>
+        <Route path="/:uid">
+          <Grid item xs={8}>
             <OtherGuyPage />
-          </Route>
-          <Route path="/">
-            <Redirect to={{ pathname: `/${uid}` }} />
-          </Route>
-        </Switch>
-      </Grid>
+          </Grid>
+        </Route>
+        <Route path="/">
+          <Redirect to={{ pathname: `/${uid}` }} />
+        </Route>
+      </Switch>
     </Grid>
   );
 };
