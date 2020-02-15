@@ -8,7 +8,7 @@ function get_day_date(d) {
   return d.toISOString().substr(0, 10);
 }
 
-function count_successfyll_tomatoes_per_day(tomatoes) {
+function count_successful_tomatoes_per_day(tomatoes) {
   console.log("count per day", tomatoes);
   const l = _.chain(tomatoes)
     .filter(
@@ -24,17 +24,14 @@ function count_successfyll_tomatoes_per_day(tomatoes) {
       value: array.length
     }))
     .value();
-  console.log(l);
   return l;
 }
 
-function get_fitst_tomato_date(my_tomatoes) {
+function get_first_tomato_date(my_tomatoes) {
   return get_day_date(
     _.min(my_tomatoes.map(tomato => tomato.start_time.toDate()))
   );
 }
-
-// function get_last_tomato_date(my_tomatoes) {}
 
 function StatisticsPage() {
   const my_tomatoes = useMyTomatoes();
@@ -46,13 +43,13 @@ function StatisticsPage() {
     );
   }
 
-  const from = get_fitst_tomato_date(my_tomatoes.value);
+  const from = get_first_tomato_date(my_tomatoes.value);
   const to = get_day_date(new Date());
 
   return (
     <div style={{ height: "33vh", width: "95vw" }}>
       <ResponsiveCalendar
-        data={count_successfyll_tomatoes_per_day(my_tomatoes.value)}
+        data={count_successful_tomatoes_per_day(my_tomatoes.value)}
         from={from}
         to={to}
         emptyColor="#eeeeee"
