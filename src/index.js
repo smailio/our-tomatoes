@@ -1,16 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
+import "typeface-roboto";
+import firebase from "@firebase/app";
+import "@firebase/auth";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import "typeface-roboto";
-import * as firebase from "firebase/app";
+import { add_personal_info, get_stats, observe_tomato } from "./db";
 import store from "./store";
-import { Provider } from "react-redux";
-import { add_personal_info, observe_tomato } from "./db";
-import { BrowserRouter as Router } from "react-router-dom";
 
-// firebase.initializeApp(firebaseConfig);
 store.dispatch({ type: "FETCH_USER" });
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
@@ -59,6 +59,16 @@ firebase.auth().onAuthStateChanged(function(user) {
           tomato.duration
         );
       }
+      // fetch all user tomatoes and put them in store
+      // disable this as too many read are made to firebase
+      // store.dispatch({ type: "GET_MY_TOMATOES" });
+      // get_my_tomatoes(uid).then(my_tomatoes =>
+      //   store.dispatch({ type: "GET_MY_TOMATOES_SUCCESS", my_tomatoes })
+      // );
+      store.dispatch({ type: "GET_STATS" });
+      get_stats(uid).then(stats =>
+        store.dispatch({ type: "GET_STATS_SUCCESS", stats })
+      );
     });
   } else {
     // No user is signed in.

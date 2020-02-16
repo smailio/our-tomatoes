@@ -5,6 +5,7 @@ import MyPage from "./MyPage";
 import OtherGuyPage from "./OtherGuyPage";
 import { useObserveFollowing } from "../useObserveFollowing";
 import { Grid } from "@material-ui/core";
+import StatisticsPage from "./StatisticsPage";
 
 const Hello = ({ uid }) => {
   useObserveFollowing();
@@ -16,19 +17,27 @@ const Hello = ({ uid }) => {
       justify="center"
       spacing={0}
     >
-      <Grid item xs={8}>
-        <Switch>
-          <Route path={`/${uid}`}>
+      <Switch>
+        <Route path={`/${uid}/statistics`}>
+          <Grid item xs={12}>
+            <StatisticsPage />
+          </Grid>
+        </Route>
+
+        <Route path={`/${uid}`}>
+          <Grid item xs={8}>
             <MyPage />
-          </Route>
-          <Route path="/:uid">
+          </Grid>
+        </Route>
+        <Route path="/:uid">
+          <Grid item xs={8}>
             <OtherGuyPage />
-          </Route>
-          <Route path="/">
-            <Redirect to={{ pathname: `/${uid}` }} />
-          </Route>
-        </Switch>
-      </Grid>
+          </Grid>
+        </Route>
+        <Route path="/">
+          <Redirect to={{ pathname: `/${uid}` }} />
+        </Route>
+      </Switch>
     </Grid>
   );
 };

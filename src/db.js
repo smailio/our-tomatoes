@@ -1,4 +1,6 @@
 import firebase from "firebase/app";
+import _ from "lodash";
+import dayjs from "dayjs";
 import { db } from "./initFirebase";
 
 export function add_tomato(start_time, duration, uid, tomato_type) {
@@ -174,5 +176,105 @@ export function get_personal_info(uid) {
       const personal_info = doc.data();
       console.log("Success ! get personal_info", doc, personal_info);
       return personal_info;
+    });
+}
+
+export function get_my_tomatoes(uid) {
+  return db
+    .collection("tomatoes")
+    .where("uid", "==", uid)
+    .get()
+    .then(snapshot => {
+      if (snapshot.empty) {
+        console.log(`get_my_tomatoes(${uid}) no matching documents.`);
+        return [];
+      }
+      const my_tomatoes = [];
+      snapshot.forEach(doc => {
+        my_tomatoes.push(doc.data());
+      });
+      return my_tomatoes;
+    });
+}
+
+export function get_my_tomatoes_after(uid, date) {
+  return db
+    .collection("tomatoes")
+    .where("uid", "==", uid)
+    .where("start_date", ">=", date)
+    .get()
+    .then(snapshot => {
+      if (snapshot.empty) {
+        console.log(`get_my_tomatoes(${uid}) no matching documents.`);
+        return [];
+      }
+      const my_tomatoes = [];
+      snapshot.forEach(doc => {
+        my_tomatoes.push(doc.data());
+      });
+      return my_tomatoes;
+    });
+}
+
+function count_successful_tomatoes_per_day(tomatoes) {
+  console.log("count per day", tomatoes);
+  function get_day_date(d) {
+    return d.toISOString().substr(0, 10);
+  }
+
+  const per_day_count = _.chain(tomatoes)
+    .filter(
+      tomato => tomato.start_time !== undefined && tomato.end_time !== undefined
+    )
+    .map(tomato => ({
+      ...tomato,
+      day_date: get_day_date(tomato.start_time.toDate())
+    }))
+    .groupBy("day_date")
+    .map((array, day) => ({
+      day,
+      value: array.length,
+      date: dayjs(day).toDate()
+    }))
+    .value();
+  const last_pomodoro = _.maxBy(tomatoes, tomato => tomato.start_time.seconds)
+    .start_time;
+  return {
+    last_update: new Date(),
+    last_pomodoro,
+    most_recent_pomodoro: per_day_count
+  };
+}
+
+function update_stats(uid) {
+  return get_my_tomatoes(uid).then(my_tomatoes => {
+    const stats = count_successful_tomatoes_per_day(my_tomatoes);
+    console.log("Going to save stats", stats);
+    db.collection("stats")
+      .doc(uid)
+      .set(stats);
+    return stats;
+  });
+}
+
+export function get_stats(uid) {
+  return db
+    .collection("stats")
+    .doc(uid)
+    .get()
+    .then(doc => {
+      if (!doc.exists) {
+        return update_stats(uid);
+      }
+      const stats = doc.data();
+      const stats_not_fresh = dayjs
+        .unix(stats.last_pomodoro.seconds)
+        .isBefore(dayjs().startOf("day"));
+      if (stats_not_fresh) {
+        const fresh_tomatoes = get_my_tomatoes_after(uid, stats.last_pomodoro);
+        if (fresh_tomatoes.length > 0) {
+          return update_stats(uid);
+        } else return stats;
+      }
     });
 }

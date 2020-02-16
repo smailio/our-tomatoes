@@ -19,6 +19,10 @@ export function useMyUid() {
   return useSelector(state => state.user.uid, shallowEqual);
 }
 
+export function useStats() {
+  return useSelector(state => state.stats, shallowEqual);
+}
+
 export function useFollowingTomatoes() {
   const following = useFollowing();
   return useSelector(state => {

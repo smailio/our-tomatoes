@@ -1,5 +1,5 @@
 import React, { useState, useEffect, memo } from "react";
-import { Howl, Howler } from "howler";
+import { Howl } from "howler";
 
 const ONE_SECOND = 1000;
 
