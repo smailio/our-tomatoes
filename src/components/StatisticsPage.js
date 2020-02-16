@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ResponsiveCalendar } from "@nivo/calendar";
-import { useMyTomatoes } from "../selectors";
+import { useStats } from "../selectors";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import _ from "lodash";
 import dayjs from "dayjs";
@@ -11,41 +11,16 @@ function get_day_date(d) {
   return d.toISOString().substr(0, 10);
 }
 
-function count_successful_tomatoes_per_day(tomatoes) {
-  console.log("count per day", tomatoes);
-  const l = _.chain(tomatoes)
-    .filter(
-      tomato => tomato.start_time !== undefined && tomato.end_time !== undefined
-    )
-    .map(tomato => ({
-      ...tomato,
-      day_date: get_day_date(tomato.start_time.toDate())
-    }))
-    .groupBy("day_date")
-    .map((array, day) => ({
-      day,
-      value: array.length
-    }))
-    .value();
-  return l;
+function get_first_tomato_date(per_day_count) {
+  return get_day_date(_.min(per_day_count.map(count => count.date.toDate())));
 }
 
-function get_first_tomato_date(my_tomatoes) {
-  return get_day_date(
-    _.min(my_tomatoes.map(tomato => tomato.start_time.toDate()))
-  );
-}
-
-function get_successful_tomatoes_for_last(n_days, tomatoes) {
-  return _.chain(tomatoes)
-    .filter(
-      tomato => tomato.start_time !== undefined && tomato.end_time !== undefined
+function get_successful_tomatoes_for_last(n_days, per_day_count) {
+  return _.chain(per_day_count)
+    .filter(count =>
+      dayjs.unix(count.date.seconds).isAfter(dayjs().subtract(n_days, "day"))
     )
-    .map(tomato => {
-      console.log("dayjs", dayjs.unix(tomato.start_time.seconds));
-      return dayjs.unix(tomato.start_time.seconds);
-    })
-    .filter(start_date => start_date.isAfter(dayjs().subtract(n_days, "day")))
+    .sum()
     .value().length;
 }
 
@@ -76,7 +51,7 @@ function SuccessfulTomatoesNLastDays({ my_tomatoes }) {
             size="small"
             type="number"
             value={n_days}
-            onChange={e => set_n_days(Math.max([1, e.target.value]))}
+            onChange={e => set_n_days(Math.max(1, e.target.value))}
             margin="none"
             inputProps={{
               style: {
@@ -97,8 +72,8 @@ function SuccessfulTomatoesNLastDays({ my_tomatoes }) {
 }
 
 function StatisticsPage() {
-  const my_tomatoes = useMyTomatoes();
-  if (my_tomatoes.value === undefined || my_tomatoes.is_loading) {
+  const stats = useStats();
+  if (stats.value === undefined || stats.is_loading) {
     return (
       <div>
         <CircularProgress />
@@ -106,7 +81,7 @@ function StatisticsPage() {
     );
   }
 
-  const from = get_first_tomato_date(my_tomatoes.value);
+  const from = get_first_tomato_date(stats.value.most_recent_pomodoro);
   const to = get_day_date(new Date());
 
   return (
@@ -118,11 +93,13 @@ function StatisticsPage() {
       }}
     >
       <div style={{ width: "70vw", marginLeft: "20vw", marginTop: "10vh" }}>
-        <SuccessfulTomatoesNLastDays my_tomatoes={my_tomatoes.value} />
+        <SuccessfulTomatoesNLastDays
+          my_tomatoes={stats.value.most_recent_pomodoro}
+        />
       </div>
       <div style={{ height: "40vh", width: "95vw" }}>
         <ResponsiveCalendar
-          data={count_successful_tomatoes_per_day(my_tomatoes.value)}
+          data={stats.value.most_recent_pomodoro}
           from={from}
           to={to}
           emptyColor="#eeeeee"

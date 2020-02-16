@@ -8,7 +8,7 @@ import "@firebase/auth";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { add_personal_info, observe_tomato, get_my_tomatoes } from "./db";
+import { add_personal_info, get_stats, observe_tomato } from "./db";
 import store from "./store";
 
 store.dispatch({ type: "FETCH_USER" });
@@ -60,9 +60,14 @@ firebase.auth().onAuthStateChanged(function(user) {
         );
       }
       // fetch all user tomatoes and put them in store
-      store.dispatch({ type: "GET_MY_TOMATOES" });
-      get_my_tomatoes(uid).then(my_tomatoes =>
-        store.dispatch({ type: "GET_MY_TOMATOES_SUCCESS", my_tomatoes })
+      // disable this as too many read are made to firebase
+      // store.dispatch({ type: "GET_MY_TOMATOES" });
+      // get_my_tomatoes(uid).then(my_tomatoes =>
+      //   store.dispatch({ type: "GET_MY_TOMATOES_SUCCESS", my_tomatoes })
+      // );
+      store.dispatch({ type: "GET_STATS" });
+      get_stats(uid).then(stats =>
+        store.dispatch({ type: "GET_STATS_SUCCESS", stats })
       );
     });
   } else {
