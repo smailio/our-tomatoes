@@ -63,7 +63,7 @@ export default memo(function Following() {
           return (
             <ListItem key={following.uid}>
               <ListItemAvatar>
-                <Link to={`${following.uid}`}>
+                <Link to={`/${following.uid}`}>
                   {" "}
                   <Avatar
                     alt={following.personal_info.display_name}
@@ -92,7 +92,7 @@ export default memo(function Following() {
             </Grid>
             {following_tomatoes_off.map(following => (
               <Grid item key={following.uid}>
-                <Link to={`${following.uid}`}>
+                <Link to={`/${following.uid}`}>
                   <Avatar
                     alt={following.personal_info.display_name}
                     src={following.personal_info.photo_url}
