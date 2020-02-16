@@ -20,8 +20,9 @@ function get_successful_tomatoes_for_last(n_days, per_day_count) {
     .filter(count =>
       dayjs.unix(count.date.seconds).isAfter(dayjs().subtract(n_days, "day"))
     )
+    .map(count => count.value)
     .sum()
-    .value().length;
+    .value();
 }
 
 function SuccessfulTomatoesNLastDays({ my_tomatoes }) {
