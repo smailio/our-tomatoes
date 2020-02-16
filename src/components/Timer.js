@@ -34,18 +34,12 @@ function remaining_seconds(start_time, duration) {
 }
 
 function useTimer(start_time, duration) {
-  console.log("useTimer", { start_time, duration });
+  // console.log("useTimer", { start_time, duration });
   const [s, setSeconds] = useState(remaining_seconds(start_time, duration));
   useEffect(() => {
     const timerID = setInterval(() => {
       const remaining = remaining_seconds(start_time, duration);
-      console.log(
-        `remaining  `,
-        remaining,
-        remaining / 60,
-        ":",
-        remaining % 60
-      );
+      // console.log(  `remaining  `,  remaining,  remaining / 60,  ":",  remaining % 60);
       setSeconds(remaining);
     }, ONE_SECOND);
     return function cleanup() {
@@ -58,7 +52,7 @@ function useTimer(start_time, duration) {
 
 function TimerOn({ start_time, is_on, duration, on_finish }) {
   const remaining = useTimer(start_time, duration);
-  console.log("TimerOn", { start_time, is_on, duration, on_finish, remaining });
+  // console.log("TimerOn", { start_time, is_on, duration, on_finish, remaining });
   useEffect(() => {
     if (is_on && remaining <= 0) {
       console.log(`Timer is finnished calling on_finish ${is_on} ${remaining}`);
