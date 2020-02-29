@@ -45,24 +45,27 @@ function SuccessfulTomatoesNLastDays({ my_tomatoes }) {
         }}
       >
         <div>
-          <Typography>Successful pomodoro fot the last </Typography>
-        </div>
-        <div style={{ marginLeft: "1em", marginRight: "1em" }}>
-          <TextField
-            size="small"
-            type="number"
-            value={n_days}
-            onChange={e => set_n_days(Math.max(1, e.target.value))}
-            margin="none"
-            inputProps={{
-              style: {
-                width: `${n_days_str.length + 1}em`
-              }
-            }}
-          />
-        </div>
-        <div>
-          <Typography>days</Typography>
+          <Typography align="justify">
+            Successful pomodoro for the last{" "}
+            <span
+              style={{ marginTop: -5, marginLeft: "1em", marginRight: "1em" }}
+            >
+              <TextField
+                dense
+                size="small"
+                type="number"
+                value={n_days}
+                onChange={e => set_n_days(Math.max(1, e.target.value))}
+                margin="none"
+                inputProps={{
+                  style: {
+                    width: `${n_days_str.length + 1}em`
+                  }
+                }}
+              />
+            </span>
+            days
+          </Typography>
         </div>
       </div>
       <Typography variant={"h2"}>
@@ -93,7 +96,7 @@ function StatisticsPage() {
         flexDirection: "column"
       }}
     >
-      <div style={{ width: "70vw", marginLeft: "20vw", marginTop: "10vh" }}>
+      <div style={{ width: "70vw", marginLeft: "10vw", marginTop: "10vh" }}>
         <SuccessfulTomatoesNLastDays
           my_tomatoes={stats.value.most_recent_pomodoro}
         />
