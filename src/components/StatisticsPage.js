@@ -41,32 +41,31 @@ function SuccessfulTomatoesNLastDays({ my_tomatoes }) {
         style={{
           display: "flex",
           justifyContent: "center",
-          alignItems: "center"
+          alignItems: "center",
+          flexWrap: "wrap",
+          marginBottom: "1em"
         }}
       >
-        <div>
-          <Typography align="justify">
-            Successful pomodoro for the last{" "}
-            <span
-              style={{ marginTop: -5, marginLeft: "1em", marginRight: "1em" }}
-            >
-              <TextField
-                dense
-                size="small"
-                type="number"
-                value={n_days}
-                onChange={e => set_n_days(Math.max(1, e.target.value))}
-                margin="none"
-                inputProps={{
-                  style: {
-                    width: `${n_days_str.length + 1}em`
-                  }
-                }}
-              />
-            </span>
-            days
-          </Typography>
-        </div>
+        <Typography style={{ marginRight: "0.3em" }}>Successful</Typography>
+        <Typography style={{ marginRight: "0.3em" }}>pomodoro</Typography>
+        <Typography style={{ marginRight: "0.3em" }}>for</Typography>
+        <Typography style={{ marginRight: "0.3em" }}>the</Typography>
+        <Typography style={{ marginRight: "0.3em" }}>last</Typography>
+        <TextField
+          size="small"
+          type="number"
+          value={n_days}
+          onChange={e => set_n_days(Math.max(1, e.target.value))}
+          margin="none"
+          inputProps={{
+            style: {
+              width: `${n_days_str.length + 1}em`
+              // marginLeft: "1em",
+              // marginRight: "1em"
+            }
+          }}
+        />
+        <Typography style={{ marginRight: "0.5em" }}>days</Typography>
       </div>
       <Typography variant={"h2"}>
         {get_successful_tomatoes_for_last(n_days, my_tomatoes)}
