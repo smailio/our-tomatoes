@@ -7,6 +7,7 @@ import _ from "lodash";
 import dayjs from "dayjs";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 import weekYear from "dayjs/plugin/weekYear";
 import WeekOfYear from "dayjs/plugin/weekOfYear";
 
@@ -104,7 +105,6 @@ function count_per_week(daily_count_list) {
     }
   }
   console.log("week ooo wek");
-  // console.log(d.weekYear(), d.week());
   console.log(count_by_week);
   return Object.entries(count_by_week).map(([week, count]) => ({
     x: week,
@@ -135,49 +135,14 @@ function ProgressOverTime({ daily_count_list }) {
       data={responsible_line_date}
       margin={{ top: 20, right: 20, bottom: 20, left: 25 }}
       xScale={{ type: "point" }}
-      // yScale={{
-      //   type: "linear",
-      //   min: "auto",
-      //   max: "auto",
-      //   stacked: true,
-      //   reverse: false
-      // }}
       colors={{ scheme: "paired" }}
       pointSize={10}
-      // pointColor={{ theme: "inherit" }}
       pointBorderWidth={2}
-      // pointBorderColor={{ theme: "inherit" }}
       pointLabel="y"
       pointLabelYOffset={-12}
       useMesh={true}
       enableGridX={false}
       enableGridY={true}
-      // legends={[
-      //   {
-      //     anchor: "bottom-right",
-      //     direction: "column",
-      //     justify: false,
-      //     translateX: 100,
-      //     translateY: 0,
-      //     itemsSpacing: 0,
-      //     itemDirection: "left-to-right",
-      //     itemWidth: 80,
-      //     itemHeight: 30,
-      //     itemOpacity: 0.75,
-      //     symbolSize: 12,
-      //     symbolShape: "circle",
-      //     symbolBorderColor: "rgba(0, 0, 0, .5)",
-      //     effects: [
-      //       {
-      //         on: "hover",
-      //         style: {
-      //           itemBackground: "rgba(0, 0, 0, .03)",
-      //           itemOpacity: 1
-      //         }
-      //       }
-      //     ]
-      //   }
-      // ]}
     />
   );
 }
@@ -205,22 +170,51 @@ function StatisticsPage() {
         flexDirection: "column"
       }}
     >
-      <div style={{ width: "70vw", marginLeft: "10vw", marginTop: "10vh" }}>
+      <div style={{ width: "70vw", marginLeft: "10vw", marginTop: "3vh" }}>
         <SuccessfulTomatoesNLastDays
           my_tomatoes={stats.value.most_recent_pomodoro}
         />
       </div>
-      <div style={{ height: "30vh", width: "95vw", marginTop: "5vh" }}>
-        <ProgressOverTime daily_count_list={stats.value.most_recent_pomodoro} />
+
+      <div>
+        <Grid
+          container
+          justify="center"
+          style={{ width: "95vw", marginTop: "3vh" }}
+        >
+          <Grid item xs={12} sm={6}>
+            <Typography variant="h5">Weekly progress</Typography>
+          </Grid>
+        </Grid>
       </div>
-      <div style={{ height: "50vh", width: "95vw" }}>
+      <div>
+        <Grid container justify="center" style={{ width: "95vw" }}>
+          <Grid item xs={12} sm={6} style={{ height: "25vh" }}>
+            <ProgressOverTime
+              daily_count_list={stats.value.most_recent_pomodoro}
+            />
+          </Grid>
+        </Grid>
+      </div>
+      <div>
+        <Grid
+          container
+          justify="center"
+          style={{ width: "95vw", marginTop: "3vh" }}
+        >
+          <Grid item xs={12} sm={6}>
+            <Typography variant="h5">Calendar</Typography>
+          </Grid>
+        </Grid>
+      </div>
+      <div style={{ height: "40vh", width: "95vw" }}>
         <ResponsiveCalendar
           data={stats.value.most_recent_pomodoro}
           from={from}
           to={to}
           emptyColor="#eeeeee"
           colors={["#61cdbb", "#97e3d5", "#e8c1a0", "#f47560"]}
-          margin={{ top: 40, right: 10, bottom: 10, left: 10 }}
+          margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
           yearSpacing={40}
           monthBorderColor="#ffffff"
           dayBorderWidth={2}
