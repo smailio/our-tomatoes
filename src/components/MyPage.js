@@ -5,6 +5,9 @@ import Following from "./Following";
 import { Grid } from "@material-ui/core";
 import { Divider } from "@material-ui/core";
 import { UserAvatar } from "./UserAvatar";
+import Equalizer from "@material-ui/icons/Equalizer";
+import IconButton from "@material-ui/core/IconButton";
+import { Link } from "react-router-dom";
 
 const MyPage = () => {
   const [off_label, set_off_label] = useState("OFF");
@@ -20,6 +23,13 @@ const MyPage = () => {
         <Grid container style={{ height: "19vh" }} alignItems="center">
           <Grid item>
             <UserAvatar />
+          </Grid>
+          <Grid item>
+            <Link to={location => `${location.pathname}/statistics`}>
+              <IconButton>
+                <Equalizer color="action" />
+              </IconButton>
+            </Link>
           </Grid>
         </Grid>
       </Grid>
