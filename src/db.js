@@ -250,10 +250,14 @@ function update_stats(uid) {
   return get_my_tomatoes(uid).then(my_tomatoes => {
     const stats = count_successful_tomatoes_per_day(my_tomatoes);
     console.log("Going to save stats", stats);
-    db.collection("stats")
+    return db
+      .collection("stats")
       .doc(uid)
-      .set(stats);
-    return stats;
+      .set(stats)
+      .then(() => {
+        console.log("update stats successfull !! ");
+        return stats;
+      });
   });
 }
 
@@ -270,11 +274,31 @@ export function get_stats(uid) {
       const stats_not_fresh = dayjs
         .unix(stats.last_pomodoro.seconds)
         .isBefore(dayjs().startOf("day"));
+      // console.log(
+      //   "stats last pomodoro",
+      //   dayjs.unix(stats.last_pomodoro.seconds)
+      // );
       if (stats_not_fresh) {
-        const fresh_tomatoes = get_my_tomatoes_after(uid, stats.last_pomodoro);
-        if (fresh_tomatoes.length > 0) {
-          return update_stats(uid);
-        } else return stats;
+        // console.log(
+        //   "stats are not fresh",
+        //   dayjs.unix(stats.last_pomodoro.seconds)
+        // );
+        return get_my_tomatoes_after(uid, stats.last_pomodoro).then(
+          fresh_tomatoes => {
+            console.log("fresh_tomatoes", fresh_tomatoes);
+            console.log("fresh_tomatoes.length", fresh_tomatoes.length);
+            if (fresh_tomatoes.length > 0) {
+              return update_stats(uid);
+            } else
+              return {
+                ...stats,
+                most_recent_pomodoro: stats.most_recent_pomodoro.map(e => ({
+                  ...e,
+                  date: dayjs(e.day).toDate()
+                }))
+              };
+          }
+        );
       }
     });
 }

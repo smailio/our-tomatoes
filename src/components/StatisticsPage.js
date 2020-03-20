@@ -19,14 +19,12 @@ function get_day_date(d) {
 }
 
 function get_first_tomato_date(per_day_count) {
-  return get_day_date(_.min(per_day_count.map(count => count.date.toDate())));
+  return get_day_date(_.min(per_day_count.map(count => count.date)));
 }
 
 function get_successful_tomatoes_for_last(n_days, per_day_count) {
   return _.chain(per_day_count)
-    .filter(count =>
-      dayjs.unix(count.date.seconds).isAfter(dayjs().subtract(n_days, "day"))
-    )
+    .filter(count => dayjs(count.date).isAfter(dayjs().subtract(n_days, "day")))
     .map(count => count.value)
     .sum()
     .value();
@@ -68,7 +66,8 @@ function SuccessfulTomatoesNLastDays({ my_tomatoes }) {
             }
           }}
         />
-        <Typography>day{"s" ? n_days > 1 : ""}</Typography>
+        {/*<Typography>day{"s" ? n_days > 1 : ""}</Typography>*/}
+        <Typography>day</Typography>
       </div>
       <Typography variant={"h2"}>
         {get_successful_tomatoes_for_last(n_days, my_tomatoes)}
