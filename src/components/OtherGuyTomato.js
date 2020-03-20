@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { TimerWithSound, is_on } from "./Timer";
+import { TimerWithSound2, is_on } from "./Timer";
 import Typography from "@material-ui/core/Typography/Typography";
 
 function OtherGyTomato({ uid }) {
@@ -9,7 +9,7 @@ function OtherGyTomato({ uid }) {
   return (
     <div>
       <Typography variant="h1">
-        <TimerWithSound
+        <TimerWithSound2
           tomato={{ ...tomato }}
           off_label={"OFF"}
           on_finish={() => {

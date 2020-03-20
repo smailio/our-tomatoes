@@ -101,5 +101,60 @@ export const TimerWithSound = memo(function({ on_finish, ...props }) {
   }
   return <Timer on_finish={on_finish_plus_sound} {...props} />;
 });
+function TimerOn2({ start_time, is_on, duration, on_finish }) {
+  const remaining = useTimer(start_time, duration);
+  // console.log("TimerOn", { start_time, is_on, duration, on_finish, remaining });
+  useEffect(() => {
+    if (is_on && remaining <= 0) {
+      console.log(`Timer is finnished calling on_finish ${is_on} ${remaining}`);
+      on_finish();
+    }
+  }, [start_time, remaining, on_finish, is_on]);
+  if (!is_on) {
+    console.warn("THERE'S DEFINITELY AN ISSUE WITH THE PARENT COMPONENT");
+    return <span>THERE'S DEFINITELY AN ISSUE WITH THE PARENT COMPONENT</span>;
+  }
+  if (remaining < 60) {
+    return <span> {remaining}</span>;
+  }
+  return (
+    <span>
+      {Math.floor(remaining / 60)}:{remaining % 60}
+    </span>
+  );
+}
+
+function Timer2({ tomato, on_finish, off_label, over_write_label = null }) {
+  let [_is_on, setIsOn] = useState(is_on(tomato));
+  _is_on = is_on(tomato);
+  useEffect(() => {
+    const timerID = setInterval(() => setIsOn(is_on(tomato)), 1000);
+
+    return function cleanup() {
+      clearInterval(timerID);
+    };
+  });
+  if (!_is_on) {
+    return <span>{off_label}</span>;
+  } else if (over_write_label) {
+    return <span>{over_write_label}</span>;
+  } else return <TimerOn2 {...{ is_on: _is_on, ...tomato, on_finish }} />;
+}
+
+export const TimerWithSound2 = memo(function({ on_finish, ...props }) {
+  function on_finish_plus_sound() {
+    const sound2 = new Howl({
+      src: ["/jinglesncf.mp3"]
+    });
+    const sound = new Howl({
+      src: ["/jinglesncf.mp3"],
+      onend: () => sound2.play()
+    });
+    // Play the sound.
+    sound.play();
+    on_finish();
+  }
+  return <Timer2 on_finish={on_finish_plus_sound} {...props} />;
+});
 
 export default memo(Timer);
