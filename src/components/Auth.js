@@ -7,6 +7,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import signInWithGoogle from "../signinWithGoogle";
 import { Route } from "react-router-dom";
 import OtherGuyPagePublic from "./OtherGuyPagePublic";
+import Typography from "@material-ui/core/Typography/Typography";
 
 function handleOnClickSignIn() {
   signInWithGoogle();
@@ -44,6 +45,7 @@ const Auth = ({ fetchingConnectionState }) => {
         </Route>
       </Grid>
       <Grid item xs={12}>
+        <Typography variant="h6">Log in and start a pomodoro</Typography>
         <GoogleLoginButton onClick={handleOnClickSignIn} />
       </Grid>
     </Grid>
