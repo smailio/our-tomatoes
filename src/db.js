@@ -201,7 +201,7 @@ export function get_my_tomatoes_after(uid, date) {
   return db
     .collection("tomatoes")
     .where("uid", "==", uid)
-    .where("start_date", ">=", date)
+    .where("start_time", ">", date)
     .get()
     .then(snapshot => {
       if (snapshot.empty) {
