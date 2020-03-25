@@ -45,7 +45,18 @@ const Auth = ({ fetchingConnectionState }) => {
         </Route>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="h6">Log in and start a pomodoro</Typography>
+        <Typography variant="h5" style={{ textAlign: "center  " }}>
+          Join us and start using the{" "}
+          <a
+            href="https://en.wikipedia.org/wiki/Pomodoro_Technique"
+            target="_blank"
+          >
+            pomodoro technique
+          </a>{" "}
+          to increase your productivity {"💪 "}
+        </Typography>{" "}
+      </Grid>
+      <Grid item xs={6}>
         <GoogleLoginButton onClick={handleOnClickSignIn} />
       </Grid>
     </Grid>

@@ -119,7 +119,8 @@ function TimerOn2({ start_time, is_on, duration, on_finish }) {
   }
   return (
     <span>
-      {Math.floor(remaining / 60)}:{remaining % 60}
+      {Math.floor(remaining / 60)}:
+      {remaining % 60 > 9 ? remaining % 60 : "0" + (remaining % 60)}
     </span>
   );
 }
