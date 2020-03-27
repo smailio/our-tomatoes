@@ -97,3 +97,15 @@ export function useGetPersonalInfos() {
     );
   }, [following, dispatch]);
 }
+
+export function useGetPersonalInfoForUid(uid) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    db.get_personal_info(uid).then(personal_info =>
+      dispatch({
+        type: "SET_PERSONAL_INFO",
+        personal_info_list: [personal_info]
+      })
+    );
+  }, [dispatch]);
+}

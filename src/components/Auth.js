@@ -31,35 +31,37 @@ const Auth = ({ fetchingConnectionState }) => {
     );
   }
   return (
-    <Grid
-      container
-      direction="column"
-      alignItems="center"
-      justify="center"
-      style={{ marginTop: "20vh" }}
-      spacing={8}
-    >
-      <Grid item xs={12}>
-        <Route path="/:uid">
-          <OtherGuyPagePublic />
-        </Route>
+    <div style={{ marginTop: "15vh" }}>
+      <Grid
+        container
+        direction="column"
+        alignItems="center"
+        justify="center"
+        style={{ margin: 0, width: "100%" }}
+        spacing={8}
+      >
+        <Grid item xs={12}>
+          <Route path="/:uid">
+            <OtherGuyPagePublic />
+          </Route>
+        </Grid>
+        <Grid item xs={10}>
+          <Typography variant="h5" style={{ textAlign: "center  " }}>
+            Join us and start using the{" "}
+            <a
+              href="https://en.wikipedia.org/wiki/Pomodoro_Technique"
+              target="_blank"
+            >
+              pomodoro technique
+            </a>{" "}
+            to increase your productivity {"💪 "}
+          </Typography>{" "}
+        </Grid>
+        <Grid item xs={6}>
+          <GoogleLoginButton onClick={handleOnClickSignIn} />
+        </Grid>
       </Grid>
-      <Grid item xs={12}>
-        <Typography variant="h5" style={{ textAlign: "center  " }}>
-          Join us and start using the{" "}
-          <a
-            href="https://en.wikipedia.org/wiki/Pomodoro_Technique"
-            target="_blank"
-          >
-            pomodoro technique
-          </a>{" "}
-          to increase your productivity {"💪 "}
-        </Typography>{" "}
-      </Grid>
-      <Grid item xs={6}>
-        <GoogleLoginButton onClick={handleOnClickSignIn} />
-      </Grid>
-    </Grid>
+    </div>
   );
 };
 
