@@ -115,7 +115,7 @@ function ProgressOverTime({ daily_count_list }) {
   const stats = useStats();
   if (stats.value === undefined || stats.is_loading) {
     return (
-      <div>
+      <div style={{ marginTop: "20vh" }}>
         <CircularProgress />
       </div>
     );
@@ -150,7 +150,7 @@ function StatisticsPage() {
   const stats = useStats();
   if (stats.value === undefined || stats.is_loading) {
     return (
-      <div>
+      <div style={{ marginTop: "20vh" }}>
         <CircularProgress />
       </div>
     );
