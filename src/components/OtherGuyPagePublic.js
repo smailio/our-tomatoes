@@ -49,7 +49,7 @@ const OtherGuyPagePublic = () => {
           <Grid item xs={12} md={7}>
             <iframe
               src="https://giphy.com/embed/w0CPP48tkM6Ag"
-              width="300px"
+              width="100%"
               height="100%"
               frameBorder="0"
               className="giphy-embed"
