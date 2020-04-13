@@ -268,21 +268,22 @@ export function get_stats(uid) {
     .get()
     .then(doc => {
       if (!doc.exists) {
+        console.log("Stats doc doesn't exist");
         return update_stats(uid);
       }
       const stats = doc.data();
       const stats_not_fresh = dayjs
         .unix(stats.last_pomodoro.seconds)
         .isBefore(dayjs().startOf("day"));
-      // console.log(
-      //   "stats last pomodoro",
-      //   dayjs.unix(stats.last_pomodoro.seconds)
-      // );
+      console.log(
+        "stats last pomodoro",
+        dayjs.unix(stats.last_pomodoro.seconds)
+      );
       if (stats_not_fresh) {
-        // console.log(
-        //   "stats are not fresh",
-        //   dayjs.unix(stats.last_pomodoro.seconds)
-        // );
+        console.log(
+          "stats are not fresh",
+          dayjs.unix(stats.last_pomodoro.seconds)
+        );
         return get_my_tomatoes_after(uid, stats.last_pomodoro).then(
           fresh_tomatoes => {
             console.log("fresh_tomatoes", fresh_tomatoes);
@@ -299,6 +300,8 @@ export function get_stats(uid) {
               };
           }
         );
+      } else {
+        return stats;
       }
     });
 }

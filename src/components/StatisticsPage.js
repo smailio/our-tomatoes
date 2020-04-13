@@ -19,7 +19,7 @@ function get_day_date(d) {
 }
 
 function get_first_tomato_date(per_day_count) {
-  return get_day_date(_.min(per_day_count.map(count => count.date)));
+  return _.min(per_day_count.map(count => count.day));
 }
 
 function get_successful_tomatoes_for_last(n_days, per_day_count) {
