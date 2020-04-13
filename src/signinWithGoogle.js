@@ -1,5 +1,6 @@
 import store from "./store";
-import * as firebase from "firebase";
+import firebase from "@firebase/app";
+import "@firebase/auth";
 
 export default function signInWithGoogle() {
   store.dispatch({ type: "FETCH_USER" });
