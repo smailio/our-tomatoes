@@ -1,6 +1,6 @@
-The app is hosted hiere : https://our-tomatoes.firebaseapp.com/
+The app is hosted here : https://our-tomatoes.firebaseapp.com/
 
-Set pomodoros and share the URL with the people that annoy you when you work, tell them to keep the page open so they watch how much time is left, they'll also hear a nice jingle when your pomodoro is done. 
+Set pomodoros and share the URL with annoying people, tell them to keep the page open so they watch how much time is left, they'll also hear a nice jingle when your pomodoro is done. 
 
 ![image](https://user-images.githubusercontent.com/7635812/116553307-46ea9080-a8fa-11eb-92a4-d58d1e414682.png)
 
