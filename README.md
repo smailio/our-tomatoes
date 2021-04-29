@@ -1,3 +1,13 @@
+The app is hosted hiere : https://our-tomatoes.firebaseapp.com/
+
+Set pomodoros and share the URL with the people that annoy you when you work, tell them to keep the page open so they watch how much time is left, they'll also hear a nice jingle when your pomodoro is done. 
+
+![image](https://user-images.githubusercontent.com/7635812/116553307-46ea9080-a8fa-11eb-92a4-d58d1e414682.png)
+
+Use the dashboard to trach how much you could focus today : 
+![image](https://user-images.githubusercontent.com/7635812/116553167-1d316980-a8fa-11eb-8b87-f27bc74e2885.png)
+
+
 ##functional requirements
 - when a user sign up a pomodoro is created for this user
 - the user need to login to manipulate his pomodoro
