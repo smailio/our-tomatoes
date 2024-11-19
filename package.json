@@ -11,7 +11,7 @@
     "@nivo/calendar": "^0.61.1",
     "@nivo/line": "^0.61.1",
     "dayjs": "^1.8.20",
-    "firebase": "^7.8.1",
+    "firebase": "^10.9.0",
     "firebase-admin": "^7.3.0",
     "firebase-functions": "^2.3.0",
     "howler": "^2.1.3",
